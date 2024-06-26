@@ -1,0 +1,20 @@
+{
+  "lecture1": {
+    "lj_fig": {
+      "output_type": "display_data",
+      "metadata": {
+        "scrapbook": {
+          "name": "lj_fig",
+          "mime_prefix": "application/papermill.record/"
+        },
+        "filenames": {
+          "image/png": "/home/al9001/Documents/mynewbook/_build/jupyter_execute/lecture1_6_0.png"
+        }
+      },
+      "data": {
+        "application/papermill.record/text/plain": "<Figure size 432x288 with 1 Axes>",
+        "application/papermill.record/image/png": null
+      }
+    }
+  }
+}

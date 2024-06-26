@@ -1,0 +1,720 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Simulation Tools &#8212; Practical Molecular simulations</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tools';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Geometry Generation" href="geo.html" />
+    <link rel="prev" title="How to use the computing cluster" href="terminal.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Practical Molecular simulations - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Practical Molecular simulations - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Practical Molecular Simulations
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="prereq.html">Prerequisites</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="access.html">How to get access to Princeton compueter clusters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="terminal.html">How to use the computing cluster</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Simulation Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geo.html">Geometry Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ase.html">ASE Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="min.html">Example geometries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deepmd.html">DeePMD installation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="md_basics.html">Molecular dynamics basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="lecture1.html">Lecture 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lecture2.html">Lecture 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lecture3.html">Lecture 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lecture4.html">Lecture 4</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="LAMMPS.html">LAMMPS Tutorials</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="lecture5.html">Lecture 5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lecture6.html">Lecture 6</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Advanced_techniques.html">Advanced techniques</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="lecture7.html">Lecture 7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lecture8.html">Lecture 8</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="DFT.html">DFT</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="lecture9.html">Lecture 9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lecture10.html">Lecture 10</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Exercises.html">Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="ex0.html">Exercise 0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex1.html">Exercise 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex2.html">Exercise 2</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/tools.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Simulation Tools</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python">Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#atomistic-simulation-environment-ase">Atomistic simulation environment (ASE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lammps">LAMMPS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#typical-input-files-required-the-names-can-be-changed">Typical input files required (The names can be changed)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lammps-example-script">LAMMPS example script</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ovito">OVITO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#packmol">PACKMOL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vasp">VASP</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#some-basics">Some basics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-vasp-on-adroit">Running VASP on Adroit</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="simulation-tools">
+<h1>Simulation Tools<a class="headerlink" href="#simulation-tools" title="Link to this heading">#</a></h1>
+<section id="python">
+<h2>Python<a class="headerlink" href="#python" title="Link to this heading">#</a></h2>
+<p>We will be using Jupyter notebooks for first few classes. Jupyter notebook allows us to interactively use Python. First you should use following command in your <em>home</em> directory.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>load<span class="w"> </span>anaconda3/2021.11
+conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>myenv<span class="w"> </span>&lt;package-1&gt;<span class="w"> </span>&lt;package-2&gt;<span class="w"> </span>...<span class="w"> </span>&lt;package-N&gt;
+</pre></div>
+</div>
+<p>If you are already familiar with Python or interested in further exploring it use the following <a class="reference external" href="https://researchcomputing.princeton.edu/support/knowledge-base/python">link</a> for instructions on using Python on Princeton clusters</p>
+<p>We will use Jupyter notebook to access the above conda environment. Please follow the research computing <a class="reference external" href="https://researchcomputing.princeton.edu/support/knowledge-base/jupyter#ondemand">instructions</a> to run Jupyter on your web-browser on Adroit.</p>
+</section>
+<section id="atomistic-simulation-environment-ase">
+<h2>Atomistic simulation environment (ASE)<a class="headerlink" href="#atomistic-simulation-environment-ase" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://wiki.fysik.dtu.dk/ase/index.html">ASE</a> is a Python based simulation environment that can be used to manage/create/control your simulations on
+multiple standard simulation softwares. We are going to cover some use cases of ASE. We will use it through the interactive Python environment.</p>
+<div class="admonition-create-an-ase-envoronment-on-adroit-using-conda admonition">
+<p class="admonition-title">Create an ASE envoronment on Adroit using conda</p>
+<p>Execute the following commands</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1">#Load the anaconda module</span>
+module<span class="w"> </span>load<span class="w"> </span>anaconda3/2021.11
+
+<span class="c1">#Create a conda environment ASE</span>
+conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>ase<span class="w"> </span>ase<span class="w"> </span>pandas<span class="w"> </span>matplotlib<span class="w"> </span>ase-notebook<span class="w"> </span>--channel<span class="w"> </span>conda-forge
+
+<span class="c1">#To check the environment execute the following</span>
+conda<span class="w"> </span>activate<span class="w"> </span>ase
+
+<span class="c1">#You should see a small **(ase)** text at the start of your command line</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="lammps">
+<h2>LAMMPS<a class="headerlink" href="#lammps" title="Link to this heading">#</a></h2>
+<section id="typical-input-files-required-the-names-can-be-changed">
+<h3>Typical input files required (The names can be changed)<a class="headerlink" href="#typical-input-files-required-the-names-can-be-changed" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>in.lammps: Input file. This file has all the parameters controlling the simulations (e.g. Thermostat, Barostate, Ensemble)</p></li>
+<li><p>geom.xyz: (optional) Geometry file. This file describes the coordinates of your simulation system. Alternatively, you can also define your system geometry in the input file.</p></li>
+<li><p>potential file: (optional) A file defining the MD potential that you are using.</p></li>
+</ul>
+</section>
+<section id="lammps-example-script">
+<h3>LAMMPS example script<a class="headerlink" href="#lammps-example-script" title="Link to this heading">#</a></h3>
+<p>Installing LAMMPS</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># double-precision build for single- and multi-node CPU jobs</span>
+
+<span class="nv">VERSION</span><span class="o">=</span>31Aug2021
+wget<span class="w"> </span>https://github.com/lammps/lammps/archive/refs/tags/patch_<span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span>.tar.gz
+tar<span class="w"> </span>zvxf<span class="w"> </span>patch_<span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span>.tar.gz
+<span class="nb">cd</span><span class="w"> </span>lammps-patch_<span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span>
+mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+
+<span class="c1"># include the modules below in your Slurm scipt</span>
+module<span class="w"> </span>purge
+module<span class="w"> </span>load<span class="w"> </span>intel/19.1.1.217<span class="w"> </span>intel-mpi/intel/2019.7
+
+cmake3<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">=</span><span class="nv">$HOME</span>/.local<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">LAMMPS_MACHINE</span><span class="o">=</span>adroit<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">CMAKE_BUILD_TYPE</span><span class="o">=</span>Release<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">CMAKE_CXX_COMPILER</span><span class="o">=</span>icpc<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">CMAKE_CXX_FLAGS_RELEASE</span><span class="o">=</span><span class="s2">&quot;-Ofast -xHost -DNDEBUG&quot;</span><span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">CMAKE_Fortran_COMPILER</span><span class="o">=</span>/opt/intel/compilers_and_libraries_2020.1.217/linux/bin/intel64/ifort<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">BUILD_OMP</span><span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">BUILD_MPI</span><span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">PKG_KSPACE</span><span class="o">=</span>yes<span class="w"> </span>-D<span class="w"> </span><span class="nv">FFT</span><span class="o">=</span>MKL<span class="w"> </span>-D<span class="w"> </span><span class="nv">FFT_SINGLE</span><span class="o">=</span>no<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">PKG_OPENMP</span><span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">PKG_MOLECULE</span><span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">PKG_RIGID</span><span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">PKG_REAXFF</span><span class="o">=</span>yes<span class="se">\</span>
+-D<span class="w"> </span><span class="nv">ENABLE_TESTING</span><span class="o">=</span>yes<span class="w"> </span>../cmake
+
+make<span class="w"> </span>-j<span class="w"> </span><span class="m">10</span>
+<span class="c1">#make test</span>
+make<span class="w"> </span>install
+</pre></div>
+</div>
+<p>We will try to use a LAMMPS executable that has been already compiled</p>
+<p>Use the following job submission script to submit a LAMMPS job</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">#SBATCH --job-name=lj-melt       # create a short name for your job</span>
+<span class="c1">#SBATCH --nodes=1                # node count</span>
+<span class="c1">#SBATCH --ntasks=4               # total number of tasks across all nodes</span>
+<span class="c1">#SBATCH --cpus-per-task=1        # cpu-cores per task (&gt;1 if multi-threaded tasks)</span>
+<span class="c1">#SBATCH --mem-per-cpu=1G         # memory per cpu-core (4G is default)</span>
+<span class="c1">#SBATCH --time=00:05:00          # total run time limit (HH:MM:SS)</span>
+<span class="c1">#SBATCH --mail-type=begin        # send email when job begins</span>
+<span class="c1">#SBATCH --mail-type=end          # send email when job ends</span>
+<span class="c1">#SBATCH --mail-user=&lt;YourNetID&gt;@princeton.edu</span>
+
+module<span class="w"> </span>purge
+module<span class="w"> </span>load<span class="w"> </span>intel/19.1.1.217<span class="w"> </span>intel-mpi/intel/2019.7
+<span class="nb">export</span><span class="w"> </span><span class="nv">OMP_NUM_THREADS</span><span class="o">=</span><span class="nv">$SLURM_CPUS_PER_TASK</span>
+
+srun<span class="w"> </span>/home/al9001/.local/bin/lmp_adroit<span class="w"> </span>-in<span class="w"> </span><span class="k">in</span>.melt
+</pre></div>
+</div>
+<p>The input file can be copied from below</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>units<span class="w">           </span>lj
+atom_style<span class="w">      </span>atomic
+
+lattice<span class="w">         </span>fcc<span class="w"> </span><span class="m">0</span>.8442
+region<span class="w">          </span>box<span class="w"> </span>block<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">30</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">30</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">30</span>
+create_box<span class="w">      </span><span class="m">1</span><span class="w"> </span>box
+create_atoms<span class="w">    </span><span class="m">1</span><span class="w"> </span>box
+mass<span class="w">            </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>.0
+
+velocity<span class="w">        </span>all<span class="w"> </span>create<span class="w"> </span><span class="m">1</span>.0<span class="w"> </span><span class="m">87287</span>
+
+pair_style<span class="w">      </span>lj/cut<span class="w"> </span><span class="m">2</span>.5
+pair_coeff<span class="w">      </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>.0<span class="w"> </span><span class="m">1</span>.0<span class="w"> </span><span class="m">2</span>.5
+
+neighbor<span class="w">        </span><span class="m">0</span>.3<span class="w"> </span>bin
+neigh_modify<span class="w">    </span>every<span class="w"> </span><span class="m">20</span><span class="w"> </span>delay<span class="w"> </span><span class="m">0</span><span class="w"> </span>check<span class="w"> </span>no
+
+fix<span class="w">             </span><span class="m">1</span><span class="w"> </span>all<span class="w"> </span>nve
+fix<span class="w">             </span><span class="m">2</span><span class="w"> </span>all<span class="w"> </span>langevin<span class="w"> </span><span class="m">1</span>.0<span class="w"> </span><span class="m">1</span>.0<span class="w"> </span><span class="m">1</span>.0<span class="w"> </span><span class="m">48279</span>
+
+timestep<span class="w">        </span><span class="m">0</span>.005
+
+thermo<span class="w">          </span><span class="m">5000</span>
+run<span class="w">             </span><span class="m">10000</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="ovito">
+<h2>OVITO<a class="headerlink" href="#ovito" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://www.ovito.org/">OVITO</a> is an easy to use visualization software that can also be used to convert different geometry file formats. You can download and install the free version locally on your computer for visualization.</p>
+</section>
+<section id="packmol">
+<h2>PACKMOL<a class="headerlink" href="#packmol" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="http://leandro.iqm.unicamp.br/m3g/packmol/download.shtml">PACKMOL</a> is a tool to generate intial MD configurations for molecules. Please download it
+using the link and upload it to your home folder (/home/Princeton_ID/). The download file name should be “packmol.tar.gz”. Unzip this file using the following command</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tar<span class="w"> </span>-xf<span class="w"> </span>packmol.tar.gz
+</pre></div>
+</div>
+<p>Change the directory to Packmol and compile it using the command</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>make
+</pre></div>
+</div>
+<p>Also download the examples.zip file from the website and upload it to your home folder. Unzip it using the following command</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>unzip<span class="w"> </span>examples.zip
+</pre></div>
+</div>
+<p>Change the directory to examples folder and execute following command to generate an example geometry.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>/location_to_packmol/packmol<span class="w"> </span>&lt;<span class="w"> </span>mixture.inp
+</pre></div>
+</div>
+</section>
+<section id="vasp">
+<h2>VASP<a class="headerlink" href="#vasp" title="Link to this heading">#</a></h2>
+<section id="some-basics">
+<h3>Some basics<a class="headerlink" href="#some-basics" title="Link to this heading">#</a></h3>
+<p>Files used to run VASP calculations</p>
+<ul class="simple">
+<li><p>INCAR: This file describes the input parameters required for different calculations (For example: A molecule will have different parameters than a crystal)</p></li>
+<li><p>KPOINTS: Description of receprocal space</p></li>
+<li><p>POSCAR: Define the geometry of your system</p></li>
+<li><p>POTCAR: Concatenated pseudopotentials for elements of your system</p></li>
+</ul>
+</section>
+<section id="running-vasp-on-adroit">
+<h3>Running VASP on Adroit<a class="headerlink" href="#running-vasp-on-adroit" title="Link to this heading">#</a></h3>
+<p>We will try to use a VASP executable that has been already compiled</p>
+<p>Use the following job submission script to submit a VASP job</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">#SBATCH --job-name=vasp          # create a short name for your job</span>
+<span class="c1">#SBATCH --nodes=1                # node count</span>
+<span class="c1">#SBATCH --ntasks-per-node=8      # total number of tasks per node</span>
+<span class="c1">#SBATCH --cpus-per-task=2        # cpu-cores per task (&gt;1 if multi-threaded tasks)</span>
+<span class="c1">#SBATCH --mem-per-cpu=4G         # memory per cpu-core (4G is default)</span>
+<span class="c1">#SBATCH --time=00:01:00          # total run time limit (HH:MM:SS)</span>
+<span class="c1">#SBATCH --mail-type=begin        # send email when job begins</span>
+<span class="c1">#SBATCH --mail-type=end          # send email when job ends</span>
+<span class="c1">#SBATCH --mail-user=&lt;YourNetID&gt;@princeton.edu</span>
+
+<span class="nb">export</span><span class="w"> </span><span class="nv">OMP_NUM_THREADS</span><span class="o">=</span><span class="nv">$SLURM_CPUS_PER_TASK</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/home/al9001/software/vasp.6.2.1/bin/
+
+module<span class="w"> </span>purge
+module<span class="w"> </span>load<span class="w"> </span>intel/2021.1.2<span class="w"> </span>intel-mpi/intel/2021.1.1
+
+srun<span class="w"> </span>vasp_std
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="terminal.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">How to use the computing cluster</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="geo.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Geometry Generation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python">Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#atomistic-simulation-environment-ase">Atomistic simulation environment (ASE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lammps">LAMMPS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#typical-input-files-required-the-names-can-be-changed">Typical input files required (The names can be changed)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lammps-example-script">LAMMPS example script</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ovito">OVITO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#packmol">PACKMOL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vasp">VASP</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#some-basics">Some basics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-vasp-on-adroit">Running VASP on Adroit</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Aditya Lele
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

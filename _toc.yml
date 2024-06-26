@@ -1,0 +1,36 @@
+format: jb-article
+root: intro
+sections:
+- file: prereq
+  sections:
+  - file: access
+  - file: terminal
+  - file: tools
+  - file: geo
+  - file: lammps
+  - file: ase
+  - file: min
+  - file: deepmd
+- file: md_basics
+  sections:
+  - file: lecture1
+  - file: lecture2
+  - file: lecture3
+  - file: lecture4
+- file: LAMMPS
+  sections:
+  - file: lecture5
+  - file: lecture6
+- file: Advanced_techniques
+  sections:
+  - file: lecture7
+  - file: lecture8
+- file: DFT
+  sections:
+  - file: lecture9
+  - file: lecture10
+- file: Exercises
+  sections:
+  - file: ex0
+  - file: ex1
+  - file: ex2

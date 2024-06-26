@@ -1,0 +1,802 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lecture 1 &#8212; Practical Molecular simulations</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture1';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lecture 2" href="lecture2.html" />
+    <link rel="prev" title="Molecular dynamics basics" href="md_basics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Practical Molecular simulations - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Practical Molecular simulations - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Practical Molecular Simulations
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="prereq.html">Prerequisites</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="access.html">How to get access to Princeton compueter clusters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="terminal.html">How to use the computing cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html">Simulation Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geo.html">Geometry Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ase.html">ASE Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="min.html">Example geometries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deepmd.html">DeePMD installation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="md_basics.html">Molecular dynamics basics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Lecture 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lecture2.html">Lecture 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lecture3.html">Lecture 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lecture4.html">Lecture 4</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="LAMMPS.html">LAMMPS Tutorials</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="lecture5.html">Lecture 5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lecture6.html">Lecture 6</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Advanced_techniques.html">Advanced techniques</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="lecture7.html">Lecture 7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lecture8.html">Lecture 8</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="DFT.html">DFT</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="lecture9.html">Lecture 9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lecture10.html">Lecture 10</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Exercises.html">Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="ex0.html">Exercise 0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex1.html">Exercise 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex2.html">Exercise 2</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/lecture1.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 1</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#molecular-dynamics-simulations">Molecular dynamics simulations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-an-interatomic-potential">What is an interatomic potential?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#l-j-potential">L-J potential</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anatomy-of-a-md-code">Anatomy of a MD code</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#md-pseudo-code">MD pseudo-code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initialization">Initialization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#force-calculation">Force calculation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#equations-of-motion">Equations of motion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-md-run">The MD run</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-lammps-run">Sample LAMMPS run</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-1">
+<h1>Lecture 1<a class="headerlink" href="#lecture-1" title="Link to this heading">#</a></h1>
+<section id="molecular-dynamics-simulations">
+<h2>Molecular dynamics simulations<a class="headerlink" href="#molecular-dynamics-simulations" title="Link to this heading">#</a></h2>
+<p>Molecular dynamics simulations typically refer to computer simulations of molecular motion. We are mainly going to discuss classical reactive molecular
+dynamics in this class. The classical part of this name refers to empirical potentials that drive the motion of atoms using Newtons classical laws of
+motion. These empirical potentials can either describe non-reactive or reactive processes governed by molecular motion. We are largely going to stick to
+reactive molecular dynamics simulations, specifically ReaxFF potential.</p>
+<p>Chemical reactive events are ubiquitous in nature. These events govern many aspects of our lives, from energy generating combustion reactions to
+metabolism. These events span several thermodynamic and time scales. Computationally studying and modeling these reaction events is a major asset
+in our quest to understand the world that we live in. A variety of methods, ranging from the quantum chemistry studies of reactions to continuum
+scale simulations of reactive processes, are available to study reaction chemistry. The first principle or quantum chemistry (QC) methods delve into
+the atomic world, describing electronic structures and associated useful properties used to characterize a reaction event. However, these methods
+become computationally untenable for the scale of several hundreds of atoms even with the best current computational resources. On the other end of
+size spectrum are continuum scale computational fluid dynamics simulations (CFD). These can simulate much larger scale processes such as the combustion
+in an automobile engine [1], which involves fluid mechanics as well as reactions chemistry processes. However, the CFD simulations typically involve
+only a simplified description of reactive events in the form of lumped or abbreviated reaction mechanisms.</p>
+<p>Reactive force field methods bridge the gap between the first principle and CFD methods. These methods deploy connection-dependent interatomic
+potentials to calculate system energy as a function of atomic positions. In the ReaxFF reactive force field method, the interatomic potential describes
+reactive events through a bond-order formalism, where bond order is empirically calculated from interatomic distances. The interatomic potentials
+are trained using the QC data. Electronic interactions driving chemical bonding are treated implicitly, allowing the method to simulate reaction
+chemistry without explicit QC consideration. This puts ReaxFF in a unique position to simulate reaction dynamics of systems involving thousands of
+molecules while approaching the accuracy of the QC methods.</p>
+</section>
+<section id="what-is-an-interatomic-potential">
+<h2>What is an interatomic potential?<a class="headerlink" href="#what-is-an-interatomic-potential" title="Link to this heading">#</a></h2>
+<p>To understand the atomic motion, we first need to understand the forces and energies between these atoms. Imagine a car driving on a straight road.
+The position of the car as a function of time can be determined using Newtons laws of motion. However, to determine the velocity or acceleration
+of the vehicle, we also need to calculate the energy produced by the engine as a function of time. This energy would be a function of fuel intake,
+wind resistance and several other factors. Similarly, a molecular dynamics potential defines the energy of the system as a function of interatomic
+distances and configurations. These interatomic potential are the driving engines of the molecular dynamics simulations.</p>
+<p>The form of the interatomic potential depends on the application it has been developed for. Let us consider the example of an inert gas. Assume that
+we want to model the motion of an inert gas and derive useful properties such as its density as a function of temperature and pressure. Given that
+it is an inert gas, the energy change in the system would mainly originate from the atoms moving close and away from each other. There are not
+reactions happening among the molecules. If we don’t want to simulate high temperatures where the atoms break apart forming plasma, we would need
+an expression describing energy of a system of two atoms as a function of interatomic distance. The following section reviews one such potential.</p>
+<section id="l-j-potential">
+<h3>L-J potential<a class="headerlink" href="#l-j-potential" title="Link to this heading">#</a></h3>
+<p>The LJ potential is defined as</p>
+<div class="math notranslate nohighlight">
+\[
+V(r)=4\epsilon\left[\left(\frac{\sigma}{r}\right)^{12}-\left(\frac{\sigma}{r}\right)^{6}\right]
+\]</div>
+<p>Let us plot the LJ potential first</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Boltzmann&#39;s constant, J/K</span>
+<span class="n">kB</span> <span class="o">=</span> <span class="mf">1.381e-23</span>
+
+<span class="c1"># The Lennard-Jones parameters:</span>
+<span class="n">A</span> <span class="o">=</span> <span class="mf">1.024e-23</span>   <span class="c1"># J.nm^6</span>
+<span class="n">B</span> <span class="o">=</span> <span class="mf">1.582e-26</span>   <span class="c1"># J.nm^12</span>
+
+<span class="c1"># Adjust the units of A and B - they have more manageable values</span>
+<span class="c1"># in K.nm^6 and K.nm^12</span>
+<span class="n">A</span><span class="p">,</span> <span class="n">B</span> <span class="o">=</span> <span class="n">A</span> <span class="o">/</span> <span class="n">kB</span><span class="p">,</span> <span class="n">B</span> <span class="o">/</span> <span class="n">kB</span>
+
+<span class="c1"># Interatomic distance, in nm</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="c1"># Interatomic potential</span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">B</span><span class="o">/</span><span class="n">r</span><span class="o">**</span><span class="mi">12</span> <span class="o">-</span> <span class="n">A</span><span class="o">/</span><span class="n">r</span><span class="o">**</span><span class="mi">6</span>
+<span class="c1"># Interatomic force</span>
+<span class="c1">#F = Put your formula</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">150</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>  <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;U(r)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<figure class="align-default" id="lj-fig" style="width: 300px">
+<img alt="_images/e87cae31015c9e17f65664665c08f024c85d23f93665318f47e2779f6132f60d.png" src="_images/e87cae31015c9e17f65664665c08f024c85d23f93665318f47e2779f6132f60d.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">L-J potential for Ar gas.</span><a class="headerlink" href="#lj-fig" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="anatomy-of-a-md-code">
+<h2>Anatomy of a MD code<a class="headerlink" href="#anatomy-of-a-md-code" title="Link to this heading">#</a></h2>
+<p>So how do we model the motion of the molecules using the interatomic potential. This task is performed by numerous MD codes (such as LAMMPS),
+most of which have following aspects as a part of them. The codes typically start by initiating positions and velocities for the particles based
+on user defined directives. These properties are then used to determine interatomic forces between the particles. The forces,positions and
+velocities are then used to solve Newton’s equations of motion numerically. The numerical equation detrmines the updated positions of the particles
+after a small but finite time (time-step). The old and new positions can then be used to detrmine the new velocities. This cycle is continued for
+multiple time-steps until the desired properties are obtained. On top this basic structure, MD simulation codes also have ways to impose thermodynamic
+conditions on the simulated system through thermostats and barostats, which we will discuss later. What is also clear from this description is that
+all the properties of interest need to be a function of position and velocities of the particles.</p>
+<figure class="align-default" id="directive-fig">
+<a class="reference internal image-reference" href="_images/MD_structure.png"><img alt="_images/MD_structure.png" src="_images/MD_structure.png" style="height: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Simplified structure of a typical MD code.</span><a class="headerlink" href="#directive-fig" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="md-pseudo-code">
+<h3>MD pseudo-code<a class="headerlink" href="#md-pseudo-code" title="Link to this heading">#</a></h3>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1">#Intialize the code</span>
+intialize<span class="w"> </span>the<span class="w"> </span>code
+<span class="nv">t</span><span class="o">=</span><span class="m">0</span>
+<span class="c1">#MD loop</span>
+
+<span class="k">do</span><span class="w"> </span>loop<span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="o">(</span><span class="nv">t</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>to<span class="w"> </span><span class="nv">t</span><span class="o">=</span>t<span class="nv">$_</span><span class="o">{</span>max<span class="o">}</span>$<span class="o">)</span>
+<span class="w">	</span><span class="c1">#Calculate forces</span>
+<span class="w">	</span>cal<span class="w"> </span>forces<span class="o">(</span>xyz,<span class="w"> </span><span class="nv">t</span><span class="o">=</span>t<span class="nv">$_n</span>$<span class="o">)</span>
+<span class="w">	</span><span class="c1">#Calculate equations of motion</span>
+<span class="w">	</span>cal<span class="w"> </span>motion<span class="o">(</span>xyz,<span class="w"> </span><span class="nv">t</span><span class="o">=</span>t<span class="nv">$_n</span>$<span class="o">)</span>
+<span class="w">	</span><span class="nv">t</span><span class="o">=</span>t+dt
+<span class="w">	</span><span class="c1"># Calculate properties</span>
+<span class="w">	</span>cal<span class="w"> </span>property<span class="o">(</span>xyz,<span class="w"> </span><span class="nv">t</span><span class="o">=</span>t<span class="nv">$_n</span>$<span class="o">)</span>
+end<span class="w"> </span>loop
+end
+</pre></div>
+</div>
+</section>
+<section id="initialization">
+<h3>Initialization<a class="headerlink" href="#initialization" title="Link to this heading">#</a></h3>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span>intialization
+<span class="k">do</span><span class="w"> </span>from<span class="w"> </span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>to<span class="w"> </span><span class="nv">i</span><span class="o">=</span>no.<span class="w"> </span>of<span class="w"> </span>particles
+<span class="w">	</span>xyz<span class="o">(</span>i<span class="o">)=</span>position<span class="w"> </span>of<span class="w"> </span>particle<span class="w"> </span>i
+<span class="w">	</span>v<span class="o">(</span>i<span class="o">)=</span>rand_vel
+<span class="w">	</span>ke<span class="o">(</span>i<span class="o">)=</span><span class="m">0</span>.5*mass*v<span class="o">(</span>i<span class="o">)</span>**2
+end<span class="w"> </span>loop
+</pre></div>
+</div>
+</section>
+<section id="force-calculation">
+<h3>Force calculation<a class="headerlink" href="#force-calculation" title="Link to this heading">#</a></h3>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span>force_and_energy_calculation
+<span class="k">do</span><span class="w"> </span>from<span class="w"> </span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>to<span class="w"> </span><span class="nv">i</span><span class="o">=</span>no.<span class="w"> </span>of<span class="w"> </span>particles
+<span class="w">	</span>f<span class="o">(</span>i<span class="o">)=</span><span class="m">0</span><span class="w"> </span><span class="c1">#initialize forces to 0</span>
+end<span class="w"> </span>loop
+
+<span class="k">do</span><span class="w"> </span>from<span class="w"> </span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>to<span class="w"> </span><span class="nv">i</span><span class="o">=</span>no.<span class="w"> </span>of<span class="w"> </span>particles
+<span class="w">	</span><span class="k">do</span><span class="w"> </span>from<span class="w"> </span><span class="nv">j</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>to<span class="w"> </span><span class="nv">j</span><span class="o">=</span>no.<span class="w"> </span>of<span class="w"> </span>particles
+<span class="w">		</span><span class="nv">xr</span><span class="o">=</span>x<span class="o">(</span>i<span class="o">)</span>-x<span class="o">(</span>j<span class="o">)</span>
+<span class="w">		</span><span class="k">if</span><span class="w"> </span>xr<span class="w"> </span>is<span class="w"> </span>less<span class="w"> </span>than<span class="w"> </span>cutoff
+<span class="w">		  </span><span class="nv">force</span><span class="o">=</span>force_equation<span class="o">(</span>e.g.<span class="w"> </span>LJ<span class="w"> </span>force<span class="w"> </span>equation<span class="o">)</span>
+<span class="w">		  </span><span class="nv">updated_force</span><span class="o">=</span>f<span class="o">(</span>i<span class="o">)</span>+force
+<span class="w">		  </span><span class="nv">updated_energy</span><span class="o">=</span>energy_equation
+<span class="w">		</span>end<span class="w"> </span><span class="k">if</span><span class="w"> </span>condition
+<span class="w">	</span>end<span class="w"> </span>loop
+end<span class="w"> </span>loop
+</pre></div>
+</div>
+</section>
+<section id="equations-of-motion">
+<h3>Equations of motion<a class="headerlink" href="#equations-of-motion" title="Link to this heading">#</a></h3>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span>integrate<span class="w"> </span>equations<span class="w"> </span>of<span class="w"> </span>motion
+
+<span class="k">do</span><span class="w"> </span>from<span class="w"> </span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>to<span class="w"> </span><span class="nv">i</span><span class="o">=</span>no.<span class="w"> </span>of<span class="w"> </span>particles
+<span class="w">	</span><span class="nv">xx</span><span class="o">=</span><span class="m">2</span>*x<span class="o">(</span>i<span class="o">)</span>-xm<span class="o">(</span>i<span class="o">)</span>+dt^2*2f<span class="o">(</span>i<span class="o">)</span><span class="w"> </span><span class="c1">#verlet algorithm</span>
+<span class="w">	</span>v<span class="o">(</span>i<span class="o">)=(</span>xx-xm<span class="o">(</span>i<span class="o">))</span>/<span class="o">(</span>2dt<span class="o">)</span><span class="w"> </span><span class="c1">#new velocity</span>
+<span class="w">	</span>xm<span class="o">(</span>i<span class="o">)=</span>x<span class="o">(</span>i<span class="o">)</span><span class="w"> </span><span class="c1">#undate positions</span>
+end<span class="w"> </span>loop
+</pre></div>
+</div>
+</section>
+</section>
+<section id="the-md-run">
+<h2>The MD run<a class="headerlink" href="#the-md-run" title="Link to this heading">#</a></h2>
+<p>Let us take a look at an example of a LJ potential to model the motion of an inert gas. You will be
+able to play with the following code as a part of excersize for this lecture. The code uses ASE to
+simulate Ar liquid at 94.4 K using LJ potential.</p>
+<blockquote>
+<div><p>This example has a historical significance. Aneesur Rahman, considered as one of the pioneers of
+molecular dynamics, used similar methods modelling motion of atoms in liquid Argon. This paper is
+generally considered to mark the beginnings of the molecular dynamics method. You can access the
+original paper <a class="reference external" href="https://journals.aps.org/pr/abstract/10.1103/PhysRev.136.A405">here</a>.</p>
+</div></blockquote>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>from<span class="w"> </span>ase<span class="w"> </span>import<span class="w"> </span>Atoms,<span class="w"> </span>units
+from<span class="w"> </span>ase.visualize<span class="w"> </span>import<span class="w"> </span>view
+from<span class="w"> </span>ase.calculators.lj<span class="w"> </span>import<span class="w"> </span>LennardJones
+from<span class="w"> </span>ase.md.velocitydistribution<span class="w"> </span>import<span class="w"> </span>MaxwellBoltzmannDistribution
+from<span class="w"> </span>ase.md.verlet<span class="w"> </span>import<span class="w"> </span>VelocityVerlet
+from<span class="w"> </span>ase.md.langevin<span class="w"> </span>import<span class="w"> </span>Langevin
+from<span class="w"> </span>ase.md.nptberendsen<span class="w"> </span>import<span class="w"> </span>NPTBerendsen<span class="w"> </span>
+from<span class="w"> </span>ase.io.trajectory<span class="w"> </span>import<span class="w"> </span>Trajectory
+from<span class="w"> </span>ase.optimize.minimahopping<span class="w"> </span>import<span class="w"> </span>MinimaHopping
+from<span class="w"> </span>ase_notebook<span class="w"> </span>import<span class="w"> </span>AseView,<span class="w"> </span>ViewConfig,<span class="w"> </span>get_example_atoms
+from<span class="w"> </span>ase.io<span class="w"> </span>import<span class="w"> </span>read,<span class="w"> </span>write,<span class="w"> </span>lammpsrun
+from<span class="w"> </span>ase<span class="w"> </span>import<span class="w"> </span>units<span class="w"> </span>
+import<span class="w"> </span>numpy<span class="w"> </span>as<span class="w"> </span>np
+import<span class="w"> </span>matplotlib.pyplot<span class="w"> </span>as<span class="w"> </span>plt
+from<span class="w"> </span>ase.visualize<span class="w"> </span>import<span class="w"> </span>view
+</pre></div>
+</div>
+<p>Let us first define the simulation box geometry.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>ViewConfig<span class="o">()</span>
+<span class="nv">ase_view</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>AseView<span class="o">(</span>config<span class="o">)</span>
+</pre></div>
+</div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">atoms</span><span class="o">=</span>read<span class="o">(</span><span class="s1">&#39;/home/al9001/Ar.xyz&#39;</span><span class="o">)</span>
+</pre></div>
+</div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>view<span class="o">(</span>atoms,<span class="w"> </span><span class="nv">viewer</span><span class="o">=</span><span class="s1">&#39;x3d&#39;</span><span class="o">)</span>
+</pre></div>
+</div>
+<p>Run a sample MD simulation.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>%%time
+atoms.calc<span class="w"> </span><span class="o">=</span><span class="w"> </span>LennardJones<span class="o">(</span><span class="nv">sigma</span><span class="o">=</span><span class="m">0</span>.34,epsilon<span class="o">=</span><span class="m">1</span>.657E-21,rc<span class="o">=</span><span class="m">3</span>.4<span class="o">)</span>
+MaxwellBoltzmannDistribution<span class="o">(</span>atoms,<span class="w"> </span><span class="nv">temperature_K</span><span class="o">=</span><span class="m">95</span><span class="o">)</span>
+<span class="c1">#T = 94.4  # Kelvin</span>
+
+<span class="nv">dyn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>NPTBerendsen<span class="o">(</span>atoms,<span class="w"> </span><span class="nv">timestep</span><span class="o">=</span><span class="m">0</span>.1<span class="w"> </span>*<span class="w"> </span>units.fs,<span class="w"> </span><span class="nv">temperature_K</span><span class="o">=</span><span class="m">95</span>,
+<span class="w">                   </span><span class="nv">taut</span><span class="o">=</span><span class="m">100</span><span class="w"> </span>*<span class="w"> </span>units.fs,<span class="w"> </span><span class="nv">pressure_au</span><span class="o">=</span><span class="m">1</span>.01325<span class="w"> </span>*<span class="w"> </span>units.bar,
+<span class="w">                   </span><span class="nv">taup</span><span class="o">=</span><span class="m">1000</span><span class="w"> </span>*<span class="w"> </span>units.fs,<span class="w"> </span><span class="nv">compressibility</span><span class="o">=</span><span class="m">4</span>.57e-5<span class="w"> </span>/<span class="w"> </span>units.bar<span class="o">)</span>
+
+def<span class="w"> </span>printenergy<span class="o">(</span><span class="nv">a</span><span class="o">=</span>atoms<span class="o">)</span>:<span class="w">  </span><span class="c1"># store a reference to atoms in the definition.</span>
+<span class="w">    </span><span class="s2">&quot;&quot;&quot;Function to print the potential, kinetic and total energy.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="nv">epot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a.get_potential_energy<span class="o">()</span><span class="w"> </span>/<span class="w"> </span>len<span class="o">(</span>a<span class="o">)</span>
+<span class="w">    </span><span class="nv">ekin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a.get_kinetic_energy<span class="o">()</span><span class="w"> </span>/<span class="w"> </span>len<span class="o">(</span>a<span class="o">)</span>
+<span class="w">    </span>print<span class="o">(</span><span class="s1">&#39;Energy per atom: Epot = %.3feV  Ekin = %.2feV (T=%3.0fK)  &#39;</span>
+<span class="w">          </span><span class="s1">&#39;Etot = %.3feV&#39;</span><span class="w"> </span>%<span class="w"> </span><span class="o">(</span>epot,<span class="w"> </span>ekin,<span class="w"> </span>ekin<span class="w"> </span>/<span class="w"> </span><span class="o">(</span><span class="m">1</span>.5<span class="w"> </span>*<span class="w"> </span>units.kB<span class="o">)</span>,<span class="w"> </span>epot<span class="w"> </span>+<span class="w"> </span>ekin<span class="o">))</span>
+
+
+dyn.attach<span class="o">(</span>printenergy,<span class="w"> </span><span class="nv">interval</span><span class="o">=</span><span class="m">50</span><span class="o">)</span>
+
+<span class="c1"># We also want to save the positions of all atoms after every 100th time step.</span>
+<span class="nv">traj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Trajectory<span class="o">(</span><span class="s1">&#39;moldyn3.traj&#39;</span>,<span class="w"> </span><span class="s1">&#39;w&#39;</span>,<span class="w"> </span>atoms<span class="o">)</span>
+dyn.attach<span class="o">(</span>traj.write,<span class="w"> </span><span class="nv">interval</span><span class="o">=</span><span class="m">50</span><span class="o">)</span>
+
+<span class="c1"># Now run the dynamics</span>
+printenergy<span class="o">()</span>
+dyn.run<span class="o">(</span><span class="m">200</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="sample-lammps-run">
+<h2>Sample LAMMPS run<a class="headerlink" href="#sample-lammps-run" title="Link to this heading">#</a></h2>
+<p>Let us run the same simulation with LAMMPS and compare the results.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>units<span class="w">           </span>real
+atom_style<span class="w">      </span>atomic
+
+
+read_data<span class="w">       </span>ar.data
+
+velocity<span class="w">        </span>all<span class="w"> </span>create<span class="w"> </span><span class="m">1</span>.0<span class="w"> </span><span class="m">87287</span>
+
+pair_style<span class="w">      </span>lj/cut<span class="w"> </span><span class="m">2</span>.5
+pair_coeff<span class="w">      </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>.0<span class="w"> </span><span class="m">1</span>.0<span class="w"> </span><span class="m">2</span>.5
+
+neighbor<span class="w">        </span><span class="m">0</span>.3<span class="w"> </span>bin
+neigh_modify<span class="w">    </span>every<span class="w"> </span><span class="m">20</span><span class="w"> </span>delay<span class="w"> </span><span class="m">0</span><span class="w"> </span>check<span class="w"> </span>no
+
+fix<span class="w">             </span><span class="m">1</span><span class="w"> </span>all<span class="w"> </span>npt<span class="w"> </span>temp<span class="w"> </span><span class="m">95</span>.0<span class="w"> </span><span class="m">95</span>.0<span class="w"> </span><span class="m">100</span>.0<span class="w"> </span>iso<span class="w"> </span><span class="m">1</span>.0<span class="w"> </span><span class="m">1</span>.0<span class="w"> </span><span class="m">1000</span>.0
+
+
+
+
+timestep<span class="w">        </span><span class="m">0</span>.25
+
+thermo<span class="w">          </span><span class="m">100</span>
+thermo_style<span class="w">    </span>custom<span class="w"> </span>step<span class="w"> </span>pe<span class="w"> </span>ke<span class="w"> </span>etotal<span class="w"> </span>temp<span class="w"> </span>press<span class="w"> </span>vol<span class="w"> </span>density
+thermo_modify<span class="w">   </span>format<span class="w"> </span>float<span class="w"> </span>%15.14g
+
+dump<span class="w">             </span><span class="m">1</span><span class="w"> </span>all<span class="w"> </span>custom<span class="w"> </span><span class="m">500</span><span class="w"> </span>dump.ar<span class="w"> </span>id<span class="w"> </span><span class="nb">type</span><span class="w"> </span>x<span class="w"> </span>y<span class="w"> </span>z
+
+run<span class="w">             </span><span class="m">500000</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="md_basics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Molecular dynamics basics</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lecture2.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lecture 2</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#molecular-dynamics-simulations">Molecular dynamics simulations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-an-interatomic-potential">What is an interatomic potential?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#l-j-potential">L-J potential</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anatomy-of-a-md-code">Anatomy of a MD code</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#md-pseudo-code">MD pseudo-code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initialization">Initialization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#force-calculation">Force calculation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#equations-of-motion">Equations of motion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-md-run">The MD run</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-lammps-run">Sample LAMMPS run</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Aditya Lele
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
