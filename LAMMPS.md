@@ -341,8 +341,8 @@ Then run it after the job is run.
 ## OVITO
 
 [OVITO](https://www.ovito.org/) is an easy to use visualization software that can also be used to convert different geometry file formats. 
-You can download and install the free version locally on your computer for visualization. You can download the dump.ar file from your 
-simulation folder to your computer and open it using OVITO.
+You can download and install the free version locally on your computer for visualization. 
 
+**You can download the dump.ar file from your  simulation folder to your computer and open it using OVITO.**
 
 
