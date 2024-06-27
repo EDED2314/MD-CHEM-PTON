@@ -6,7 +6,7 @@ Use the code above as an example to a) plot energy of L-J potentials for He, Ne 
  is expressed as $F_r=\frac{dV(r)}{dr}$, plot the forces along with potential energy for the above.
 ```
 
-Uncomment the line with '##' and fill up the space with your code whereever required.
+Uncomment the line with '##' and fill up the space with your code wherever required.
 
 ```
 # Boltzmann's constant, J/K

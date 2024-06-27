@@ -15,7 +15,7 @@ from ase.neb import NEB
 from ase.optimize import BFGS
 ```
 
-Then let us load an Aluminium slab with Au atom adsorbed on top. We will then energy minimize this structure
+Then let us load an Aluminum slab with Au atom adsorbed on top. We will then energy minimize this structure
 
 ```sh
 # 2x2-Al(001) surface with 3 layers and an
@@ -131,7 +131,7 @@ print('Best value for σ = {:.2f} Å'.format(
     popt[1]))
 ```
 
-And finally, to plot the fitted parameters against the intial data
+And finally, to plot the fitted parameters against the initial data
 
 ```sh
 plt.errorbar(r, energy, yerr=energy_err, marker='o', ls='')
