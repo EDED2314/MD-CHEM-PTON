@@ -38,21 +38,24 @@ conda install ase-notebook --channel conda-forge
 Installing LAMMPS
 
 ```sh
-#!/bin/bash
+#!bin/bash
 
-# double-precision build for single- and multi-node CPU jobs
-
-VERSION=31Aug2021
+VERSION=17Apr2024
 wget https://github.com/lammps/lammps/archive/refs/tags/patch_${VERSION}.tar.gz
 tar zvxf patch_${VERSION}.tar.gz
 cd lammps-patch_${VERSION}
 mkdir build && cd build
 
-# include the modules below in your Slurm script
+# include the modules below in your Slurm scipt
 module purge
 module load intel/19.1.1.217 intel-mpi/intel/2019.7
+```
 
-# change LAMMPS_MACHINE=della if you want to install it for Della
+#### Making with cmake
+
+**Adriot**
+
+```sh
 cmake3 \
 -D CMAKE_INSTALL_PREFIX=$HOME/.local \
 -D LAMMPS_MACHINE=adroit \ 
@@ -68,12 +71,37 @@ cmake3 \
 -D PKG_RIGID=yes \
 -D PKG_REAXFF=yes\
 -D ENABLE_TESTING=yes ../cmake
+```
 
+**Della**
+
+```sh
+cmake3 \
+-D CMAKE_INSTALL_PREFIX=$HOME/.local \
+-D LAMMPS_MACHINE=della \
+-D CMAKE_BUILD_TYPE=Release \
+-D CMAKE_CXX_COMPILER=icpc \
+-D CMAKE_CXX_FLAGS_RELEASE="-Ofast -xHost -DNDEBUG" \
+-D CMAKE_Fortran_COMPILER=/opt/intel/compilers_and_libraries_2020.1.217/linux/bin/intel64/ifort \
+-D BUILD_OMP=yes \
+-D BUILD_MPI=yes \
+-D PKG_KSPACE=yes -D FFT=MKL -D FFT_SINGLE=no \
+-D PKG_OPENMP=yes \
+-D PKG_MOLECULE=yes \
+-D PKG_RIGID=yes \
+-D PKG_REAXFF=yes\
+-D ENABLE_TESTING=yes ../cmake
+```
+
+**Finish with compiling the executable for lammps**
+
+```sh
 make -j 10
 #make test
 make install
-
 ```
+
+
 Once this has been compiled, execute `ls` and you will find a file named `lmps_adriot` or `lmps_della` in the same directory.
 
 Move that file into a folder in which you store your executables. Normally, I would recommend storing it in `/home/<NET-ID>/.local/bin`, since it is already in `$PATH`.

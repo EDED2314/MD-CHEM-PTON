@@ -13,7 +13,7 @@ We will be referencing [this](https://github.com/PrincetonUniversity/hpc_beginni
 
 To get started with python, we need a conda environment, something that helps us manage libraries and packages.
 
-```
+```sh
 ssh <YourNetID>@adroit.princeton.edu
 # Della users: ssh <YourNetID>@della.princeton.edu
 
@@ -30,7 +30,7 @@ conda activate ml-env
 ```
 
 Next, create a python file called `matrix-inverse.py`
-```
+```sh
 touch matrix-inverse.py && nano matrix-inverse.py
 
 import numpy as np
@@ -41,7 +41,7 @@ print("Inverse(X) =\n", np.linalg.inv(X))
 ```
 
 Below is the `job.slurm` file that should go in the same directory:
-```
+```sh
 #!/bin/bash
 #SBATCH --job-name=matinv        # create a short name for your job
 #SBATCH --nodes=1                # node count
@@ -62,9 +62,11 @@ python matrix_inverse.py
 
 Lastly, submit the job then wait a few minutes to view the log.
 
-```sbatch job.slurm```
-
+```sh
+sbatch job.slurm
 ```
+
+```sh
 X =
  [[ 1.34903552  0.67843791 -0.43574188]
  [ 1.60554068  0.66067333 -0.38373032]

@@ -2,35 +2,12 @@
 
 ## PACKMOL
 
-[PACKMOL](http://leandro.iqm.unicamp.br/m3g/packmol/download.shtml) is a tool to generate intial MD configurations for molecules. Please download it
-using the link and upload it to your home folder (/home/Princeton_ID/). The download file name should be "packmol.tar.gz". Unzip this file using the following command
-
-```sh
-tar -xf packmol.tar.gz
-``` 
-Change the directory to Packmol and compile it using the command
-
-```sh
-make
-```
-
-
-Also download the examples.zip file from the website and upload it to your home folder. Unzip it using the following command
-
-```sh
-unzip examples.zip
-``` 
-
-Change the directory to examples folder and execute following command to generate an example geometry.
-
-```sh
-/location_to_packmol/packmol < mixture.inp
-```
+[PACKMOL](http://leandro.iqm.unicamp.br/m3g/packmol/download.shtml) is a tool to generate intial MD configurations for molecule. Please reference [tools](tools.md) for installation and usage.
 
 
 ## ASE for crystal structures
 
-Open a juputer notebook using class allocation or your own installation. 
+Open a Jupyter notebook using class allocation or your own installation. 
 
 Copy the following content to call the required python packages to create and visualize your geometries 
 

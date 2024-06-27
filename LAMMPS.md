@@ -7,75 +7,11 @@
 - geom.xyz: (optional) Geometry file. This file describes the coordinates of your simulation system. Alternatively, you can also define your system geometry in the input file.
 - potential file: (optional) A file defining the MD potential that you are using.
 
-### LAMMPS installation
-Create a folder named software in your adroit home directory (/home/Your_princeton_ID).
+### LAMMPS Installation
 
-```sh
-cd /home/Your_princeton_ID
-mkdir software
-```
+Reference [tools](tools.md) to install LAMMPS
 
-Change the directory to the software folder
-```sh
-cd ./software
-```
-
-This is the lammps installation script. Copy the contents of the following code block to the
-software folder with a file names 'install.sh'. (Alternatively I have uploaded this file on 
-Canvas in the folder LAMMPS tutorial1).
-
-
-```sh
-#!/bin/bash
-
-# double-precision build for single- and multi-node CPU jobs
-
-VERSION=31Aug2021
-wget https://github.com/lammps/lammps/archive/refs/tags/patch_${VERSION}.tar.gz
-tar zvxf patch_${VERSION}.tar.gz
-cd lammps-patch_${VERSION}
-mkdir build && cd build
-
-# include the modules below in your Slurm scipt
-module purge
-module load intel/19.1.1.217 intel-mpi/intel/2019.7
-
-cmake3 \
--D CMAKE_INSTALL_PREFIX=$HOME/.local \
--D LAMMPS_MACHINE=adroit \
--D CMAKE_BUILD_TYPE=Release \
--D CMAKE_CXX_COMPILER=icpc \
--D CMAKE_CXX_FLAGS_RELEASE="-Ofast -xHost -DNDEBUG" \
--D CMAKE_Fortran_COMPILER=/opt/intel/compilers_and_libraries_2020.1.217/linux/bin/intel64/ifort \
--D BUILD_OMP=yes \
--D BUILD_MPI=yes \
--D PKG_KSPACE=yes -D FFT=MKL -D FFT_SINGLE=no \
--D PKG_OPENMP=yes \
--D PKG_MOLECULE=yes \
--D PKG_RIGID=yes \
--D PKG_REAXFF=yes\
--D ENABLE_TESTING=yes ../cmake
-
-make -j 10
-#make test
-make install
-
-```
-
-Make the script executable by using the following command
-
-```sh
-chmod +x ./install.sh
-```
-
-Then run the installations using the following command. Make sure you open the visualization node
-on Adroit dashboard as that has internet access required for installation. 
-
-```sh
-./install.sh
-```
-
-
+### Submitting a LAMMPS job
 
 Use the following job submission script to submit a LAMMPS job. Copy the following content to a file named
 'job.slurm' on your scratch folder (/scratch/network/al9001/). Make sure you replace my princeton Id with yours. 
