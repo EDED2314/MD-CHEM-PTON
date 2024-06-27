@@ -1,37 +1,27 @@
 # Simulation Tools
 
-## Python
-
-We will be using Jupyter notebooks for first few classes. Jupyter notebook allows us to interactively use Python. First you should use following command in your *home* directory. 
-```sh
-module load anaconda3/2021.11
-conda create --name myenv <package-1> <package-2> ... <package-N>
-```
-If you are already familiar with Python or interested in further exploring it use the following [link](https://researchcomputing.princeton.edu/support/knowledge-base/python) for instructions on using Python on Princeton clusters 
-
-We will use Jupyter notebook to access the above conda environment. Please follow the research computing [instructions](https://researchcomputing.princeton.edu/support/knowledge-base/jupyter#ondemand) to run Jupyter on your web-browser on Adroit.
-
-
 ## Atomistic simulation environment (ASE)
 
 [ASE](https://wiki.fysik.dtu.dk/ase/index.html) is a Python based simulation environment that can be used to manage/create/control your simulations on 
 multiple standard simulation softwares. We are going to cover some use cases of ASE. We will use it through the interactive Python environment.  
 
-```{admonition} Create an ASE envoronment on Adroit using conda
+```{admonition} Create an ASE environment on Adroit using conda
 Execute the following commands
  
 
 ```sh
 #Load the anaconda module
-module load anaconda3/2021.11
+module load anaconda3/2024.2
 
 #Create a conda environment ASE
-conda create --name ase ase pandas matplotlib ase-notebook --channel conda-forge
+conda create --name ase python=3.8 ase pandas matplotlib --channel conda-forge
 
 #To check the environment execute the following
 conda activate ase
 
 #You should see a small **(ase)** text at the start of your command line
+
+conda install ase-notebook --channel conda-forge
 
 ```
 
@@ -58,13 +48,14 @@ tar zvxf patch_${VERSION}.tar.gz
 cd lammps-patch_${VERSION}
 mkdir build && cd build
 
-# include the modules below in your Slurm scipt
+# include the modules below in your Slurm script
 module purge
 module load intel/19.1.1.217 intel-mpi/intel/2019.7
 
+# change LAMMPS_MACHINE=della if you want to install it for Della
 cmake3 \
 -D CMAKE_INSTALL_PREFIX=$HOME/.local \
--D LAMMPS_MACHINE=adroit \
+-D LAMMPS_MACHINE=adroit \ 
 -D CMAKE_BUILD_TYPE=Release \
 -D CMAKE_CXX_COMPILER=icpc \
 -D CMAKE_CXX_FLAGS_RELEASE="-Ofast -xHost -DNDEBUG" \
@@ -83,9 +74,11 @@ make -j 10
 make install
 
 ```
+Once this has been compiled, execute `ls` and you will find a file named `lmps_adriot` or `lmps_della` in the same directory.
 
+Move that file into a folder in which you store your executables. Normally, I would recommend storing it in `/home/<NET-ID>/.local/bin`, since it is already in `$PATH`.
 
-We will try to use a LAMMPS executable that has been already compiled
+However, we will try to use a LAMMPS executable that has been already compiled that can be found on canvas.
 
 Use the following job submission script to submit a LAMMPS job
 ```sh
@@ -104,6 +97,8 @@ module purge
 module load intel/19.1.1.217 intel-mpi/intel/2019.7
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 
+# Argument as such: srun [executable location] [mode (-in)] [input file (.melt, .lammps)]
+# Change the executable location to where you store your compiled lammps file.
 srun /home/al9001/.local/bin/lmp_adroit -in in.melt
 ```
 
@@ -143,8 +138,22 @@ run             10000
 
 ## PACKMOL
 
-[PACKMOL](http://leandro.iqm.unicamp.br/m3g/packmol/download.shtml) is a tool to generate intial MD configurations for molecules. Please download it
-using the link and upload it to your home folder (/home/Princeton_ID/). The download file name should be "packmol.tar.gz". Unzip this file using the following command
+[PACKMOL](https://m3g.github.io/packmol/download.shtml) is a tool to generate initial MD configurations for molecules. Please download it
+using the link with wget in your home folder (/home/Princeton_ID/). 
+
+Steps to find download link:
+1. Click on given link
+2. Click on "[LATEST RELEASE]". This will bring you to a page on Github.
+3. Over the hyperlink with the text `.tar.gz`, right click and select `copy link`.
+
+I will download the most recent version of packmol with this command with the url from the steps above.
+```
+wget https://github.com/m3g/packmol/archive/refs/tags/v20.14.4+docs1.tar.gz
+```
+
+The download file should be renamed into "packmol.tar.gz"
+
+Unzip this file using the following command
 
 ```sh
 tar -xf packmol.tar.gz
@@ -154,9 +163,9 @@ Change the directory to Packmol and compile it using the command
 ```sh
 make
 ```
+This would produce a file called `packmol`, you can then move this into your `~/.local/bin` folder.
 
-
-Also download the examples.zip file from the website and upload it to your home folder. Unzip it using the following command
+Also download the [examples.zip](https://m3g.github.io/packmol/examples/examples.zip) file from the website and upload it to your home folder (or, use wget). Unzip it using the following command
 
 ```sh
 unzip examples.zip
@@ -165,6 +174,7 @@ unzip examples.zip
 Change the directory to examples folder and execute following command to generate an example geometry.
 
 ```sh
+# Remember that it is "<" not ">". If you use ">" in your command, your input file will be wiped clean and you will have to re-enter your inputs.
 /location_to_packmol/packmol < mixture.inp
 ```
 
@@ -175,7 +185,7 @@ Change the directory to examples folder and execute following command to generat
 
 Files used to run VASP calculations
 - INCAR: This file describes the input parameters required for different calculations (For example: A molecule will have different parameters than a crystal)
-- KPOINTS: Description of receprocal space
+- KPOINTS: Description of reciprocal space
 - POSCAR: Define the geometry of your system
 - POTCAR: Concatenated pseudopotentials for elements of your system 
 
@@ -204,3 +214,4 @@ module load intel/2021.1.2 intel-mpi/intel/2021.1.1
 
 srun vasp_std
 ```
+

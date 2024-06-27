@@ -5,6 +5,7 @@ sections:
   sections:
   - file: access
   - file: terminal
+  - file: python
   - file: tools
   - file: geo
   - file: lammps
