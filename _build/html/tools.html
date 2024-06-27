@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
@@ -61,7 +61,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Geometry Generation" href="geo.html" />
-    <link rel="prev" title="How to use the computing cluster" href="terminal.html" />
+    <link rel="prev" title="Python" href="python.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -181,8 +181,11 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="prereq.html">Prerequisites</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="access.html">How to get access to Princeton compueter clusters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="access.html">How to get access to Princeton computer clusters</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="terminal.html">How to use the computing cluster</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="python.html">Python</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Simulation Tools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="geo.html">Geometry Generation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ase.html">ASE Tutorial</a></li>
@@ -366,11 +369,13 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python">Python</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#atomistic-simulation-environment-ase">Atomistic simulation environment (ASE)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lammps">LAMMPS</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#typical-input-files-required-the-names-can-be-changed">Typical input files required (The names can be changed)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lammps-example-script">LAMMPS example script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lammps-example-script">LAMMPS example script</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#making-with-cmake">Making with cmake</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ovito">OVITO</a></li>
@@ -393,33 +398,25 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="simulation-tools">
 <h1>Simulation Tools<a class="headerlink" href="#simulation-tools" title="Link to this heading">#</a></h1>
-<section id="python">
-<h2>Python<a class="headerlink" href="#python" title="Link to this heading">#</a></h2>
-<p>We will be using Jupyter notebooks for first few classes. Jupyter notebook allows us to interactively use Python. First you should use following command in your <em>home</em> directory.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>load<span class="w"> </span>anaconda3/2021.11
-conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>myenv<span class="w"> </span>&lt;package-1&gt;<span class="w"> </span>&lt;package-2&gt;<span class="w"> </span>...<span class="w"> </span>&lt;package-N&gt;
-</pre></div>
-</div>
-<p>If you are already familiar with Python or interested in further exploring it use the following <a class="reference external" href="https://researchcomputing.princeton.edu/support/knowledge-base/python">link</a> for instructions on using Python on Princeton clusters</p>
-<p>We will use Jupyter notebook to access the above conda environment. Please follow the research computing <a class="reference external" href="https://researchcomputing.princeton.edu/support/knowledge-base/jupyter#ondemand">instructions</a> to run Jupyter on your web-browser on Adroit.</p>
-</section>
 <section id="atomistic-simulation-environment-ase">
 <h2>Atomistic simulation environment (ASE)<a class="headerlink" href="#atomistic-simulation-environment-ase" title="Link to this heading">#</a></h2>
 <p><a class="reference external" href="https://wiki.fysik.dtu.dk/ase/index.html">ASE</a> is a Python based simulation environment that can be used to manage/create/control your simulations on
 multiple standard simulation softwares. We are going to cover some use cases of ASE. We will use it through the interactive Python environment.</p>
-<div class="admonition-create-an-ase-envoronment-on-adroit-using-conda admonition">
-<p class="admonition-title">Create an ASE envoronment on Adroit using conda</p>
+<div class="admonition-create-an-ase-environment-on-adroit-using-conda admonition">
+<p class="admonition-title">Create an ASE environment on Adroit using conda</p>
 <p>Execute the following commands</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1">#Load the anaconda module</span>
-module<span class="w"> </span>load<span class="w"> </span>anaconda3/2021.11
+module<span class="w"> </span>load<span class="w"> </span>anaconda3/2024.2
 
 <span class="c1">#Create a conda environment ASE</span>
-conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>ase<span class="w"> </span>ase<span class="w"> </span>pandas<span class="w"> </span>matplotlib<span class="w"> </span>ase-notebook<span class="w"> </span>--channel<span class="w"> </span>conda-forge
+conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>ase<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.8<span class="w"> </span>ase<span class="w"> </span>pandas<span class="w"> </span>matplotlib<span class="w"> </span>--channel<span class="w"> </span>conda-forge
 
 <span class="c1">#To check the environment execute the following</span>
 conda<span class="w"> </span>activate<span class="w"> </span>ase
 
 <span class="c1">#You should see a small **(ase)** text at the start of your command line</span>
+
+conda<span class="w"> </span>install<span class="w"> </span>ase-notebook<span class="w"> </span>--channel<span class="w"> </span>conda-forge
 </pre></div>
 </div>
 </div>
@@ -437,11 +434,9 @@ conda<span class="w"> </span>activate<span class="w"> </span>ase
 <section id="lammps-example-script">
 <h3>LAMMPS example script<a class="headerlink" href="#lammps-example-script" title="Link to this heading">#</a></h3>
 <p>Installing LAMMPS</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!bin/bash</span>
 
-<span class="c1"># double-precision build for single- and multi-node CPU jobs</span>
-
-<span class="nv">VERSION</span><span class="o">=</span>31Aug2021
+<span class="nv">VERSION</span><span class="o">=</span>17Apr2024
 wget<span class="w"> </span>https://github.com/lammps/lammps/archive/refs/tags/patch_<span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span>.tar.gz
 tar<span class="w"> </span>zvxf<span class="w"> </span>patch_<span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span>.tar.gz
 <span class="nb">cd</span><span class="w"> </span>lammps-patch_<span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span>
@@ -450,10 +445,14 @@ mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&
 <span class="c1"># include the modules below in your Slurm scipt</span>
 module<span class="w"> </span>purge
 module<span class="w"> </span>load<span class="w"> </span>intel/19.1.1.217<span class="w"> </span>intel-mpi/intel/2019.7
-
-cmake3<span class="w"> </span><span class="se">\</span>
+</pre></div>
+</div>
+<section id="making-with-cmake">
+<h4>Making with cmake<a class="headerlink" href="#making-with-cmake" title="Link to this heading">#</a></h4>
+<p><strong>Adriot</strong></p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>cmake3<span class="w"> </span><span class="se">\</span>
 -D<span class="w"> </span><span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">=</span><span class="nv">$HOME</span>/.local<span class="w"> </span><span class="se">\</span>
--D<span class="w"> </span><span class="nv">LAMMPS_MACHINE</span><span class="o">=</span>adroit<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">LAMMPS_MACHINE</span><span class="o">=</span>adroit<span class="w"> </span><span class="se">\ </span>
 -D<span class="w"> </span><span class="nv">CMAKE_BUILD_TYPE</span><span class="o">=</span>Release<span class="w"> </span><span class="se">\</span>
 -D<span class="w"> </span><span class="nv">CMAKE_CXX_COMPILER</span><span class="o">=</span>icpc<span class="w"> </span><span class="se">\</span>
 -D<span class="w"> </span><span class="nv">CMAKE_CXX_FLAGS_RELEASE</span><span class="o">=</span><span class="s2">&quot;-Ofast -xHost -DNDEBUG&quot;</span><span class="w"> </span><span class="se">\</span>
@@ -466,13 +465,35 @@ cmake3<span class="w"> </span><span class="se">\</span>
 -D<span class="w"> </span><span class="nv">PKG_RIGID</span><span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
 -D<span class="w"> </span><span class="nv">PKG_REAXFF</span><span class="o">=</span>yes<span class="se">\</span>
 -D<span class="w"> </span><span class="nv">ENABLE_TESTING</span><span class="o">=</span>yes<span class="w"> </span>../cmake
-
-make<span class="w"> </span>-j<span class="w"> </span><span class="m">10</span>
+</pre></div>
+</div>
+<p><strong>Della</strong></p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>cmake3<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">=</span><span class="nv">$HOME</span>/.local<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">LAMMPS_MACHINE</span><span class="o">=</span>della<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">CMAKE_BUILD_TYPE</span><span class="o">=</span>Release<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">CMAKE_CXX_COMPILER</span><span class="o">=</span>icpc<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">CMAKE_CXX_FLAGS_RELEASE</span><span class="o">=</span><span class="s2">&quot;-Ofast -xHost -DNDEBUG&quot;</span><span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">CMAKE_Fortran_COMPILER</span><span class="o">=</span>/opt/intel/compilers_and_libraries_2020.1.217/linux/bin/intel64/ifort<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">BUILD_OMP</span><span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">BUILD_MPI</span><span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">PKG_KSPACE</span><span class="o">=</span>yes<span class="w"> </span>-D<span class="w"> </span><span class="nv">FFT</span><span class="o">=</span>MKL<span class="w"> </span>-D<span class="w"> </span><span class="nv">FFT_SINGLE</span><span class="o">=</span>no<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">PKG_OPENMP</span><span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">PKG_MOLECULE</span><span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">PKG_RIGID</span><span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
+-D<span class="w"> </span><span class="nv">PKG_REAXFF</span><span class="o">=</span>yes<span class="se">\</span>
+-D<span class="w"> </span><span class="nv">ENABLE_TESTING</span><span class="o">=</span>yes<span class="w"> </span>../cmake
+</pre></div>
+</div>
+<p><strong>Finish with compiling the executable for lammps</strong></p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>-j<span class="w"> </span><span class="m">10</span>
 <span class="c1">#make test</span>
 make<span class="w"> </span>install
 </pre></div>
 </div>
-<p>We will try to use a LAMMPS executable that has been already compiled</p>
+<p>Once this has been compiled, execute <code class="docutils literal notranslate"><span class="pre">ls</span></code> and you will find a file named <code class="docutils literal notranslate"><span class="pre">lmps_adriot</span></code> or <code class="docutils literal notranslate"><span class="pre">lmps_della</span></code> in the same directory.</p>
+<p>Move that file into a folder in which you store your executables. Normally, I would recommend storing it in <code class="docutils literal notranslate"><span class="pre">/home/&lt;NET-ID&gt;/.local/bin</span></code>, since it is already in <code class="docutils literal notranslate"><span class="pre">$PATH</span></code>.</p>
+<p>However, we will try to use a LAMMPS executable that has been already compiled that can be found on canvas.</p>
 <p>Use the following job submission script to submit a LAMMPS job</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 <span class="c1">#SBATCH --job-name=lj-melt       # create a short name for your job</span>
@@ -489,6 +510,8 @@ module<span class="w"> </span>purge
 module<span class="w"> </span>load<span class="w"> </span>intel/19.1.1.217<span class="w"> </span>intel-mpi/intel/2019.7
 <span class="nb">export</span><span class="w"> </span><span class="nv">OMP_NUM_THREADS</span><span class="o">=</span><span class="nv">$SLURM_CPUS_PER_TASK</span>
 
+<span class="c1"># Argument as such: srun [executable location] [mode (-in)] [input file (.melt, .lammps)]</span>
+<span class="c1"># Change the executable location to where you store your compiled lammps file.</span>
 srun<span class="w"> </span>/home/al9001/.local/bin/lmp_adroit<span class="w"> </span>-in<span class="w"> </span><span class="k">in</span>.melt
 </pre></div>
 </div>
@@ -521,14 +544,27 @@ run<span class="w">             </span><span class="m">10000</span>
 </div>
 </section>
 </section>
+</section>
 <section id="ovito">
 <h2>OVITO<a class="headerlink" href="#ovito" title="Link to this heading">#</a></h2>
 <p><a class="reference external" href="https://www.ovito.org/">OVITO</a> is an easy to use visualization software that can also be used to convert different geometry file formats. You can download and install the free version locally on your computer for visualization.</p>
 </section>
 <section id="packmol">
 <h2>PACKMOL<a class="headerlink" href="#packmol" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="http://leandro.iqm.unicamp.br/m3g/packmol/download.shtml">PACKMOL</a> is a tool to generate intial MD configurations for molecules. Please download it
-using the link and upload it to your home folder (/home/Princeton_ID/). The download file name should be “packmol.tar.gz”. Unzip this file using the following command</p>
+<p><a class="reference external" href="https://m3g.github.io/packmol/download.shtml">PACKMOL</a> is a tool to generate initial MD configurations for molecules. Please download it
+using the link with wget in your home folder (/home/Princeton_ID/).</p>
+<p>Steps to find download link:</p>
+<ol class="arabic simple">
+<li><p>Click on given link</p></li>
+<li><p>Click on “[LATEST RELEASE]”. This will bring you to a page on Github.</p></li>
+<li><p>Over the hyperlink with the text <code class="docutils literal notranslate"><span class="pre">.tar.gz</span></code>, right click and select <code class="docutils literal notranslate"><span class="pre">copy</span> <span class="pre">link</span></code>.</p></li>
+</ol>
+<p>I will download the most recent version of packmol with this command with the url from the steps above.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">m3g</span><span class="o">/</span><span class="n">packmol</span><span class="o">/</span><span class="n">archive</span><span class="o">/</span><span class="n">refs</span><span class="o">/</span><span class="n">tags</span><span class="o">/</span><span class="n">v20</span><span class="mf">.14.4</span><span class="o">+</span><span class="n">docs1</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+<p>The download file should be renamed into “packmol.tar.gz”</p>
+<p>Unzip this file using the following command</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tar<span class="w"> </span>-xf<span class="w"> </span>packmol.tar.gz
 </pre></div>
 </div>
@@ -536,12 +572,14 @@ using the link and upload it to your home folder (/home/Princeton_ID/). The down
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>make
 </pre></div>
 </div>
-<p>Also download the examples.zip file from the website and upload it to your home folder. Unzip it using the following command</p>
+<p>This would produce a file called <code class="docutils literal notranslate"><span class="pre">packmol</span></code>, you can then move this into your <code class="docutils literal notranslate"><span class="pre">~/.local/bin</span></code> folder.</p>
+<p>Also download the <a class="reference external" href="https://m3g.github.io/packmol/examples/examples.zip">examples.zip</a> file from the website and upload it to your home folder (or, use wget). Unzip it using the following command</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>unzip<span class="w"> </span>examples.zip
 </pre></div>
 </div>
 <p>Change the directory to examples folder and execute following command to generate an example geometry.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>/location_to_packmol/packmol<span class="w"> </span>&lt;<span class="w"> </span>mixture.inp
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remember that it is &quot;&lt;&quot; not &quot;&gt;&quot;. If you use &quot;&gt;&quot; in your command, your input file will be wiped clean and you will have to re-enter your inputs.</span>
+/location_to_packmol/packmol<span class="w"> </span>&lt;<span class="w"> </span>mixture.inp
 </pre></div>
 </div>
 </section>
@@ -552,7 +590,7 @@ using the link and upload it to your home folder (/home/Princeton_ID/). The down
 <p>Files used to run VASP calculations</p>
 <ul class="simple">
 <li><p>INCAR: This file describes the input parameters required for different calculations (For example: A molecule will have different parameters than a crystal)</p></li>
-<li><p>KPOINTS: Description of receprocal space</p></li>
+<li><p>KPOINTS: Description of reciprocal space</p></li>
 <li><p>POSCAR: Define the geometry of your system</p></li>
 <li><p>POTCAR: Concatenated pseudopotentials for elements of your system</p></li>
 </ul>
@@ -616,12 +654,12 @@ srun<span class="w"> </span>vasp_std
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="terminal.html"
+       href="python.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">How to use the computing cluster</p>
+        <p class="prev-next-title">Python</p>
       </div>
     </a>
     <a class="right-next"
@@ -649,11 +687,13 @@ srun<span class="w"> </span>vasp_std
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python">Python</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#atomistic-simulation-environment-ase">Atomistic simulation environment (ASE)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lammps">LAMMPS</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#typical-input-files-required-the-names-can-be-changed">Typical input files required (The names can be changed)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lammps-example-script">LAMMPS example script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lammps-example-script">LAMMPS example script</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#making-with-cmake">Making with cmake</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ovito">OVITO</a></li>

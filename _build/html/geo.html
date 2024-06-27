@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
@@ -181,8 +181,11 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="prereq.html">Prerequisites</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="access.html">How to get access to Princeton compueter clusters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="access.html">How to get access to Princeton computer clusters</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="terminal.html">How to use the computing cluster</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="python.html">Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tools.html">Simulation Tools</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Geometry Generation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ase.html">ASE Tutorial</a></li>
@@ -383,27 +386,11 @@ document.write(`
 <h1>Geometry Generation<a class="headerlink" href="#geometry-generation" title="Link to this heading">#</a></h1>
 <section id="packmol">
 <h2>PACKMOL<a class="headerlink" href="#packmol" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="http://leandro.iqm.unicamp.br/m3g/packmol/download.shtml">PACKMOL</a> is a tool to generate intial MD configurations for molecules. Please download it
-using the link and upload it to your home folder (/home/Princeton_ID/). The download file name should be “packmol.tar.gz”. Unzip this file using the following command</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tar<span class="w"> </span>-xf<span class="w"> </span>packmol.tar.gz
-</pre></div>
-</div>
-<p>Change the directory to Packmol and compile it using the command</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>make
-</pre></div>
-</div>
-<p>Also download the examples.zip file from the website and upload it to your home folder. Unzip it using the following command</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>unzip<span class="w"> </span>examples.zip
-</pre></div>
-</div>
-<p>Change the directory to examples folder and execute following command to generate an example geometry.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>/location_to_packmol/packmol<span class="w"> </span>&lt;<span class="w"> </span>mixture.inp
-</pre></div>
-</div>
+<p><a class="reference external" href="http://leandro.iqm.unicamp.br/m3g/packmol/download.shtml">PACKMOL</a> is a tool to generate intial MD configurations for molecule. Please reference <a class="reference internal" href="tools.html"><span class="std std-doc">tools</span></a> for installation and usage.</p>
 </section>
 <section id="ase-for-crystal-structures">
 <h2>ASE for crystal structures<a class="headerlink" href="#ase-for-crystal-structures" title="Link to this heading">#</a></h2>
-<p>Open a juputer notebook using class allocation or your own installation.</p>
+<p>Open a Jupyter notebook using class allocation or your own installation.</p>
 <p>Copy the following content to call the required python packages to create and visualize your geometries</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>from<span class="w"> </span>ase<span class="w"> </span>import<span class="w"> </span>Atoms,<span class="w"> </span>units
 from<span class="w"> </span>ase.visualize<span class="w"> </span>import<span class="w"> </span>view

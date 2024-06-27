@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>ASE Tutorial &#8212; Practical Molecular simulations</title>
+    <title>Python &#8212; Practical Molecular simulations</title>
   
   
   
@@ -57,11 +57,11 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'ase';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'python';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Example geometries" href="min.html" />
-    <link rel="prev" title="Geometry Generation" href="geo.html" />
+    <link rel="next" title="Simulation Tools" href="tools.html" />
+    <link rel="prev" title="How to use the computing cluster" href="terminal.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -185,10 +185,10 @@
 
 <li class="toctree-l2"><a class="reference internal" href="terminal.html">How to use the computing cluster</a></li>
 
-<li class="toctree-l2"><a class="reference internal" href="python.html">Python</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tools.html">Simulation Tools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="geo.html">Geometry Generation</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">ASE Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ase.html">ASE Tutorial</a></li>
 <li class="toctree-l2"><a class="reference internal" href="min.html">Example geometries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="deepmd.html">DeePMD installation</a></li>
 </ul>
@@ -275,7 +275,7 @@
       
       
       
-      <li><a href="_sources/ase.md" target="_blank"
+      <li><a href="_sources/python.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -359,7 +359,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>ASE Tutorial</h1>
+    <h1>Python</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -369,8 +369,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neb-example">NEB Example</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#l-j-parameter-fitting">L-J parameter fitting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-it-in-jobs">Using it in jobs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#embarrassingly-parallel">Embarrassingly Parallel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-jupyter-on-the-web-browser">Running Jupyter on the web browser</a></li>
 </ul>
             </nav>
         </div>
@@ -382,136 +383,96 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="ase-tutorial">
-<h1>ASE Tutorial<a class="headerlink" href="#ase-tutorial" title="Link to this heading">#</a></h1>
-<section id="neb-example">
-<h2>NEB Example<a class="headerlink" href="#neb-example" title="Link to this heading">#</a></h2>
-<p>Open a Jupyter notebook interface and copy following code block</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>from<span class="w"> </span>ase.build<span class="w"> </span>import<span class="w"> </span>fcc100,<span class="w"> </span>add_adsorbate
-from<span class="w"> </span>ase.constraints<span class="w"> </span>import<span class="w"> </span>FixAtoms
-from<span class="w"> </span>ase.calculators.emt<span class="w"> </span>import<span class="w"> </span>EMT
-from<span class="w"> </span>ase.optimize<span class="w"> </span>import<span class="w"> </span>QuasiNewton
-from<span class="w"> </span>ase.io<span class="w"> </span>import<span class="w"> </span><span class="nb">read</span>
-from<span class="w"> </span>ase.neb<span class="w"> </span>import<span class="w"> </span>NEB
-from<span class="w"> </span>ase.optimize<span class="w"> </span>import<span class="w"> </span>BFGS
+  <section class="tex2jax_ignore mathjax_ignore" id="python">
+<h1>Python<a class="headerlink" href="#python" title="Link to this heading">#</a></h1>
+<p>We will be using Jupyter notebooks for first few classes. Jupyter notebook allows us to interactively use Python. First you should use following command in your <em>home</em> directory.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>load<span class="w"> </span>anaconda3/2024.2
+conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>myenv<span class="w"> </span>&lt;package-1&gt;<span class="w"> </span>&lt;package-2&gt;<span class="w"> </span>...<span class="w"> </span>&lt;package-N&gt;
 </pre></div>
 </div>
-<p>Then let us load an Aluminum slab with Au atom adsorbed on top. We will then energy minimize this structure</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># 2x2-Al(001) surface with 3 layers and an</span>
-<span class="c1"># Au atom adsorbed in a hollow site:</span>
-<span class="nv">slab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>fcc100<span class="o">(</span><span class="s1">&#39;Al&#39;</span>,<span class="w"> </span><span class="nv">size</span><span class="o">=(</span><span class="m">2</span>,<span class="w"> </span><span class="m">2</span>,<span class="w"> </span><span class="m">3</span><span class="o">))</span>
-add_adsorbate<span class="o">(</span>slab,<span class="w"> </span><span class="s1">&#39;Au&#39;</span>,<span class="w"> </span><span class="m">1</span>.7,<span class="w"> </span><span class="s1">&#39;hollow&#39;</span><span class="o">)</span>
-slab.center<span class="o">(</span><span class="nv">axis</span><span class="o">=</span><span class="m">2</span>,<span class="w"> </span><span class="nv">vacuum</span><span class="o">=</span><span class="m">4</span>.0<span class="o">)</span>
+<section id="using-it-in-jobs">
+<h2>Using it in jobs<a class="headerlink" href="#using-it-in-jobs" title="Link to this heading">#</a></h2>
+<p>If you are already familiar with Python or interested in further exploring it use the following <a class="reference external" href="https://researchcomputing.princeton.edu/support/knowledge-base/python">link</a> for instructions on using Python on Princeton clusters. This section will break it down to an easy extent.</p>
+<p>We will be referencing <a class="reference external" href="https://github.com/PrincetonUniversity/hpc_beginning_workshop/tree/main/python/cpu">this</a> link for the tutorial underneath.</p>
+<p>To get started with python, we need a conda environment, something that helps us manage libraries and packages.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>&lt;YourNetID&gt;@adroit.princeton.edu
+<span class="c1"># Della users: ssh &lt;YourNetID&gt;@della.princeton.edu</span>
 
-<span class="c1"># Fix second and third layers:</span>
-<span class="nv">mask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span>atom.tag<span class="w"> </span>&gt;<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>atom<span class="w"> </span><span class="k">in</span><span class="w"> </span>slab<span class="o">]</span>
-<span class="c1"># print(mask)</span>
-slab.set_constraint<span class="o">(</span>FixAtoms<span class="o">(</span><span class="nv">mask</span><span class="o">=</span>mask<span class="o">))</span>
+<span class="c1"># cd to scratch/network/&lt;YourNetID&gt; since we are testing and these files are not important</span>
+<span class="nb">cd</span><span class="w"> </span>/scratch/network/&lt;YourNetID&gt;/python_test
+<span class="c1"># Della users:  cd /scratch/gpfs/&lt;YourNetID&gt;/python_test</span>
 
-<span class="c1"># Use EMT potential:</span>
-slab.calc<span class="w"> </span><span class="o">=</span><span class="w"> </span>EMT<span class="o">()</span>
-
-<span class="c1"># Initial state:</span>
-<span class="nv">qn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>QuasiNewton<span class="o">(</span>slab,<span class="w"> </span><span class="nv">trajectory</span><span class="o">=</span><span class="s1">&#39;initial.traj&#39;</span><span class="o">)</span>
-qn.run<span class="o">(</span><span class="nv">fmax</span><span class="o">=</span><span class="m">0</span>.05<span class="o">)</span>
-
-<span class="c1"># Final state:</span>
-slab<span class="o">[</span>-1<span class="o">]</span>.x<span class="w"> </span>+<span class="o">=</span><span class="w"> </span>slab.get_cell<span class="o">()[</span><span class="m">0</span>,<span class="w"> </span><span class="m">0</span><span class="o">]</span><span class="w"> </span>/<span class="w"> </span><span class="m">2</span>
-<span class="nv">qn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>QuasiNewton<span class="o">(</span>slab,<span class="w"> </span><span class="nv">trajectory</span><span class="o">=</span><span class="s1">&#39;final.traj&#39;</span><span class="o">)</span>
-qn.run<span class="o">(</span><span class="nv">fmax</span><span class="o">=</span><span class="m">0</span>.05<span class="o">)</span>
+<span class="c1"># Load conda module to be able to access conda executable and environment</span>
+module<span class="w"> </span>load<span class="w"> </span>anaconda3/2024.2
+<span class="c1"># Create the environment</span>
+conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>ml-env<span class="w"> </span>scikit-learn<span class="w"> </span>pandas<span class="w"> </span>matplotlib<span class="w"> </span>--channel<span class="w"> </span>conda-forge
+<span class="c1"># Activate the environment</span>
+conda<span class="w"> </span>activate<span class="w"> </span>ml-env
 </pre></div>
 </div>
-<p>Run the following code block to run NEB calculations</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">initial</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>read<span class="o">(</span><span class="s1">&#39;initial.traj&#39;</span><span class="o">)</span>
-<span class="nv">final</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>read<span class="o">(</span><span class="s1">&#39;final.traj&#39;</span><span class="o">)</span>
+<p>Next, create a python file called <code class="docutils literal notranslate"><span class="pre">matrix-inverse.py</span></code></p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>touch<span class="w"> </span>matrix-inverse.py<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>nano<span class="w"> </span>matrix-inverse.py
 
-<span class="nv">constraint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>FixAtoms<span class="o">(</span><span class="nv">mask</span><span class="o">=[</span>atom.tag<span class="w"> </span>&gt;<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>atom<span class="w"> </span><span class="k">in</span><span class="w"> </span>initial<span class="o">])</span>
-
-<span class="nv">images</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span>initial<span class="o">]</span>
-<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span>range<span class="o">(</span><span class="m">3</span><span class="o">)</span>:
-<span class="w">    </span><span class="nv">image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>initial.copy<span class="o">()</span>
-<span class="w">    </span>image.calc<span class="w"> </span><span class="o">=</span><span class="w"> </span>EMT<span class="o">()</span>
-<span class="w">    </span>image.set_constraint<span class="o">(</span>constraint<span class="o">)</span>
-<span class="w">    </span>images.append<span class="o">(</span>image<span class="o">)</span>
-
-images.append<span class="o">(</span>final<span class="o">)</span>
-
-<span class="nv">neb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>NEB<span class="o">(</span>images<span class="o">)</span>
-neb.interpolate<span class="o">()</span>
-<span class="nv">qn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>BFGS<span class="o">(</span>neb,<span class="w"> </span><span class="nv">trajectory</span><span class="o">=</span><span class="s1">&#39;neb.traj&#39;</span><span class="o">)</span>
-qn.run<span class="o">(</span><span class="nv">fmax</span><span class="o">=</span><span class="m">0</span>.05<span class="o">)</span>
+import<span class="w"> </span>numpy<span class="w"> </span>as<span class="w"> </span>np
+<span class="nv">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span>
+<span class="nv">X</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>np.random.randn<span class="o">(</span>N,<span class="w"> </span>N<span class="o">)</span>
+print<span class="o">(</span><span class="s2">&quot;X =\n&quot;</span>,<span class="w"> </span>X<span class="o">)</span>
+print<span class="o">(</span><span class="s2">&quot;Inverse(X) =\n&quot;</span>,<span class="w"> </span>np.linalg.inv<span class="o">(</span>X<span class="o">))</span>
 </pre></div>
 </div>
-<p>To visualize the geometry, open a virtual machine on Adroit visualization node or <a class="reference external" href="https://researchcomputing.princeton.edu/systems/della#vis-nodes">Della</a> visualization node. Change the directory to your home directory. (Note that this is the less preferred method, please use OVITO to visualize instead)</p>
-<p>Execute the following command with <a class="reference external" href="https://wiki.fysik.dtu.dk/ase/ase/gui/basics.html">ase gui</a>.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>/opt/export/course/mae539/anaconda3/envs/myenv/bin/ase<span class="w"> </span>gui<span class="w"> </span>neb.traj@-5:
+<p>Below is the <code class="docutils literal notranslate"><span class="pre">job.slurm</span></code> file that should go in the same directory:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">#SBATCH --job-name=matinv        # create a short name for your job</span>
+<span class="c1">#SBATCH --nodes=1                # node count</span>
+<span class="c1">#SBATCH --ntasks=1               # total number of tasks across all nodes</span>
+<span class="c1">#SBATCH --cpus-per-task=1        # cpu-cores per task (&gt;1 if multi-threaded tasks)</span>
+<span class="c1">#SBATCH --mem-per-cpu=4G         # memory per cpu-core (4G is default)</span>
+<span class="c1">#SBATCH --time=00:01:00          # total run time limit (HH:MM:SS)</span>
+<span class="c1">#SBATCH --mail-type=begin        # send email when job begins</span>
+<span class="c1">#SBATCH --mail-type=end          # send email when job ends</span>
+<span class="c1">#SBATCH --mail-type=fail         # send email if job fails</span>
+<span class="c1">#SBATCH --mail-user=&lt;YourNetID&gt;@princeton.edu</span>
+
+module<span class="w"> </span>purge
+module<span class="w"> </span>load<span class="w"> </span>anaconda3/2024.2
+
+python<span class="w"> </span>matrix_inverse.py
+</pre></div>
+</div>
+<p>Lastly, submit the job then wait a few minutes to view the log.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sbatch<span class="w"> </span>job.slurm
+</pre></div>
+</div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">X</span><span class="w"> </span><span class="o">=</span>
+<span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="m">1</span>.34903552<span class="w">  </span><span class="m">0</span>.67843791<span class="w"> </span>-0.43574188<span class="o">]</span>
+<span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="m">1</span>.60554068<span class="w">  </span><span class="m">0</span>.66067333<span class="w"> </span>-0.38373032<span class="o">]</span>
+<span class="w"> </span><span class="o">[</span>-1.54970008<span class="w">  </span><span class="m">1</span>.28489254<span class="w">  </span><span class="m">0</span>.14557173<span class="o">]]</span>
+Inverse<span class="o">(</span>X<span class="o">)</span><span class="w"> </span><span class="o">=</span>
+<span class="w"> </span><span class="o">[[</span><span class="w"> </span>-1.93014233<span class="w">   </span><span class="m">2</span>.15752707<span class="w">  </span>-0.09023234<span class="o">]</span>
+<span class="w"> </span><span class="o">[</span><span class="w"> </span>-1.18235524<span class="w">   </span><span class="m">1</span>.56870044<span class="w">   </span><span class="m">0</span>.59596897<span class="o">]</span>
+<span class="w"> </span><span class="o">[</span>-10.11145687<span class="w">   </span><span class="m">9</span>.12202091<span class="w">   </span><span class="m">0</span>.64855209<span class="o">]]</span>
 </pre></div>
 </div>
 </section>
-<section id="l-j-parameter-fitting">
-<h2>L-J parameter fitting<a class="headerlink" href="#l-j-parameter-fitting" title="Link to this heading">#</a></h2>
-<p>Use the following codeblocks in a Jupyter notebook to run parameter fitting example.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>import<span class="w"> </span>matplotlib.pyplot<span class="w"> </span>as<span class="w"> </span>plt
-import<span class="w"> </span>numpy<span class="w"> </span>as<span class="w"> </span>np
-
-<span class="nv">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>np.arange<span class="o">(</span><span class="m">3</span>.5,<span class="w"> </span><span class="m">7</span>.,<span class="w"> </span><span class="m">0</span>.5<span class="o">)</span>
-<span class="nv">energy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>np.array<span class="o">([</span><span class="m">0</span>.1374,<span class="w"> </span>-0.0195,<span class="w"> </span>-0.0218,<span class="w"> </span>
-<span class="w">                   </span>-0.0133,<span class="w"> </span>-0.0076,<span class="w"> </span>-0.0043,<span class="w"> </span>
-<span class="w">                   </span>-0.0025<span class="o">])</span>
-<span class="nv">energy_err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>energy<span class="w"> </span>*<span class="w"> </span><span class="m">0</span>.1
-
-plt.errorbar<span class="o">(</span>r,<span class="w"> </span>energy,<span class="w"> </span><span class="nv">yerr</span><span class="o">=</span>energy_err,<span class="w"> </span>
-<span class="w">             </span><span class="nv">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span>,<span class="w"> </span><span class="nv">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="o">)</span>
-plt.xlabel<span class="o">(</span>r<span class="s1">&#39;$r$/Å&#39;</span><span class="o">)</span>
-plt.ylabel<span class="o">(</span>r<span class="s1">&#39;$E$/eV&#39;</span><span class="o">)</span>
-plt.show<span class="o">()</span>
-</pre></div>
-</div>
-<p>Then</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>from<span class="w"> </span>scipy.optimize<span class="w"> </span>import<span class="w"> </span>curve_fit
-
-def<span class="w"> </span>lj_energy<span class="o">(</span>r,<span class="w"> </span>epsilon,<span class="w"> </span>sigma<span class="o">)</span>:
-<span class="w">    </span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">    Implementation of the Lennard-Jones potential </span>
-<span class="s2">    to calculate the energy of the interaction.</span>
-<span class="s2">    </span>
-<span class="s2">    Parameters</span>
-<span class="s2">    ----------</span>
-<span class="s2">    r: float</span>
-<span class="s2">        Distance between two particles (Å)</span>
-<span class="s2">    epsilon: float </span>
-<span class="s2">        Potential energy at the equilibrium bond </span>
-<span class="s2">        length (eV)</span>
-<span class="s2">    sigma: float </span>
-<span class="s2">        Distance at which the potential energy is </span>
-<span class="s2">        zero (Å)</span>
-<span class="s2">    </span>
-<span class="s2">    Returns</span>
-<span class="s2">    -------</span>
-<span class="s2">    float</span>
-<span class="s2">        Energy of the van der Waals interaction (eV)</span>
-<span class="s2">    &quot;&quot;&quot;</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="m">4</span><span class="w"> </span>*<span class="w"> </span>epsilon<span class="w"> </span>*<span class="w"> </span>np.power<span class="o">(</span>
-<span class="w">        </span>sigma<span class="w"> </span>/<span class="w"> </span>r,<span class="w"> </span><span class="m">12</span><span class="o">)</span><span class="w"> </span>-<span class="w"> </span><span class="m">4</span><span class="w"> </span>*<span class="w"> </span>epsilon<span class="w"> </span>*<span class="w"> </span>np.power<span class="o">(</span>
-<span class="w">        </span>sigma<span class="w"> </span>/<span class="w"> </span>r,<span class="w"> </span><span class="m">6</span><span class="o">)</span>
-
-popt,<span class="w"> </span><span class="nv">pcov</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>curve_fit<span class="o">(</span>lj_energy,<span class="w"> </span>r,<span class="w"> </span>energy,<span class="w"> </span>
-<span class="w">                       </span><span class="nv">sigma</span><span class="o">=</span>energy_err<span class="o">)</span>
-print<span class="o">(</span><span class="s1">&#39;Best value for ε = {:.2e} eV&#39;</span>.format<span class="o">(</span>
-<span class="w">    </span>popt<span class="o">[</span><span class="m">0</span><span class="o">]))</span>
-print<span class="o">(</span><span class="s1">&#39;Best value for σ = {:.2f} Å&#39;</span>.format<span class="o">(</span>
-<span class="w">    </span>popt<span class="o">[</span><span class="m">1</span><span class="o">]))</span>
-</pre></div>
-</div>
-<p>And finally, to plot the fitted parameters against the initial data</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>plt.errorbar<span class="o">(</span>r,<span class="w"> </span>energy,<span class="w"> </span><span class="nv">yerr</span><span class="o">=</span>energy_err,<span class="w"> </span><span class="nv">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span>,<span class="w"> </span><span class="nv">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="o">)</span>
-<span class="nv">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>np.linspace<span class="o">(</span><span class="m">3</span>.5,<span class="w"> </span><span class="m">7</span>,<span class="w"> </span><span class="m">1000</span><span class="o">)</span>
-plt.plot<span class="o">(</span>x,<span class="w"> </span>lj_energy<span class="o">(</span>x,<span class="w"> </span>popt<span class="o">[</span><span class="m">0</span><span class="o">]</span>,<span class="w"> </span>popt<span class="o">[</span><span class="m">1</span><span class="o">]))</span>
-plt.xlabel<span class="o">(</span>r<span class="s1">&#39;$r$/Å&#39;</span><span class="o">)</span>
-plt.ylabel<span class="o">(</span>r<span class="s1">&#39;$E$/eV&#39;</span><span class="o">)</span>
-plt.show<span class="o">()</span>
-</pre></div>
-</div>
+<section id="embarrassingly-parallel">
+<h2>Embarrassingly Parallel<a class="headerlink" href="#embarrassingly-parallel" title="Link to this heading">#</a></h2>
+<p>This is a way to parallelize your jobs. Let’s say that you have different inputs files labelled 1-1000. One way is to submit all these inputs and one script to read them all to one job. Or, you can submit one job that will distribute these inputs across different sub-jobs that will be able to parallelize and speed up calculations massively.</p>
+<p>Please refer to <a class="reference external" href="https://github.com/PrincetonUniversity/hpc_beginning_workshop/tree/main/job_array/python">this</a> link to learn more.</p>
+</section>
+<section id="running-jupyter-on-the-web-browser">
+<h2>Running Jupyter on the web browser<a class="headerlink" href="#running-jupyter-on-the-web-browser" title="Link to this heading">#</a></h2>
+<p>We will use Jupyter notebook to access the above conda environment. Please follow the research computing <a class="reference external" href="https://researchcomputing.princeton.edu/support/knowledge-base/jupyter#ondemand">instructions</a> to run Jupyter on your web-browser on Adroit.</p>
+<p>First, you will need to access the on-demand websites.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://mydella.princeton.edu/">Della</a></p></li>
+<li><p><a class="reference external" href="https://myadroit.princeton.edu/">Adriot</a></p></li>
+</ul>
+<p>Next, login and click on <code class="docutils literal notranslate"><span class="pre">My</span> <span class="pre">interactive</span> <span class="pre">sessions</span> <span class="pre">📒</span></code> on menu bar.</p>
+<p>On the sidebar, click on Jupyter.</p>
+<p>Then, an option/form to launch a jupyter environment will pop up in front of the screen.</p>
+<p>Select <code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">JupyterLab</span> <span class="pre">instead</span> <span class="pre">of</span> <span class="pre">Jupyter</span> <span class="pre">Notebook?</span></code>.</p>
+<p>Select <code class="docutils literal notranslate"><span class="pre">Node</span> <span class="pre">Type</span></code> as <code class="docutils literal notranslate"><span class="pre">skylake</span></code></p>
+<p>For <code class="docutils literal notranslate"><span class="pre">Anaconda3</span> <span class="pre">version</span> <span class="pre">used</span> <span class="pre">for</span> <span class="pre">starting</span> <span class="pre">up</span> <span class="pre">jupyter</span> <span class="pre">interface</span></code>, select your custom python environment with all the packages installed. In our case, we would want to select the <code class="docutils literal notranslate"><span class="pre">ase</span></code> environment created underneath the <code class="docutils literal notranslate"><span class="pre">ase</span></code> section in <a class="reference internal" href="tools.html"><span class="std std-doc">tools.md</span></a> to be able to run the <code class="docutils literal notranslate"><span class="pre">ase</span></code> python package in jupyter.</p>
 </section>
 </section>
 
@@ -546,20 +507,20 @@ plt.show<span class="o">()</span>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="geo.html"
+       href="terminal.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Geometry Generation</p>
+        <p class="prev-next-title">How to use the computing cluster</p>
       </div>
     </a>
     <a class="right-next"
-       href="min.html"
+       href="tools.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Example geometries</p>
+        <p class="prev-next-title">Simulation Tools</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -579,8 +540,9 @@ plt.show<span class="o">()</span>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neb-example">NEB Example</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#l-j-parameter-fitting">L-J parameter fitting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-it-in-jobs">Using it in jobs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#embarrassingly-parallel">Embarrassingly Parallel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-jupyter-on-the-web-browser">Running Jupyter on the web browser</a></li>
 </ul>
   </nav></div>
 

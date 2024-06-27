@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
@@ -181,8 +181,11 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="prereq.html">Prerequisites</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="access.html">How to get access to Princeton compueter clusters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="access.html">How to get access to Princeton computer clusters</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="terminal.html">How to use the computing cluster</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="python.html">Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tools.html">Simulation Tools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="geo.html">Geometry Generation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ase.html">ASE Tutorial</a></li>
@@ -367,7 +370,8 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#typical-input-files-required-the-names-can-be-changed">Typical input files required (The names can be changed)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lammps-installation">LAMMPS installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lammps-installation">LAMMPS Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submitting-a-lammps-job">Submitting a LAMMPS job</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lammps-energy-minimization">LAMMPS energy minimization</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lammps-diffusion-example">LAMMPS diffusion example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ovito">OVITO</a></li>
@@ -393,63 +397,11 @@ document.write(`
 </ul>
 </section>
 <section id="lammps-installation">
-<h2>LAMMPS installation<a class="headerlink" href="#lammps-installation" title="Link to this heading">#</a></h2>
-<p>Create a folder named software in your adroit home directory (/home/Your_princeton_ID).</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/home/Your_princeton_ID
-mkdir<span class="w"> </span>software
-</pre></div>
-</div>
-<p>Change the directory to the software folder</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>./software
-</pre></div>
-</div>
-<p>This is the lammps installation script. Copy the contents of the following code block to the
-software folder with a file names ‘<a class="reference external" href="http://install.sh">install.sh</a>’. (Alternatively I have uploaded this file on
-Canvas in the folder LAMMPS tutorial1).</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
-
-<span class="c1"># double-precision build for single- and multi-node CPU jobs</span>
-
-<span class="nv">VERSION</span><span class="o">=</span>31Aug2021
-wget<span class="w"> </span>https://github.com/lammps/lammps/archive/refs/tags/patch_<span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span>.tar.gz
-tar<span class="w"> </span>zvxf<span class="w"> </span>patch_<span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span>.tar.gz
-<span class="nb">cd</span><span class="w"> </span>lammps-patch_<span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span>
-mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
-
-<span class="c1"># include the modules below in your Slurm scipt</span>
-module<span class="w"> </span>purge
-module<span class="w"> </span>load<span class="w"> </span>intel/19.1.1.217<span class="w"> </span>intel-mpi/intel/2019.7
-
-cmake3<span class="w"> </span><span class="se">\</span>
--D<span class="w"> </span><span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">=</span><span class="nv">$HOME</span>/.local<span class="w"> </span><span class="se">\</span>
--D<span class="w"> </span><span class="nv">LAMMPS_MACHINE</span><span class="o">=</span>adroit<span class="w"> </span><span class="se">\</span>
--D<span class="w"> </span><span class="nv">CMAKE_BUILD_TYPE</span><span class="o">=</span>Release<span class="w"> </span><span class="se">\</span>
--D<span class="w"> </span><span class="nv">CMAKE_CXX_COMPILER</span><span class="o">=</span>icpc<span class="w"> </span><span class="se">\</span>
--D<span class="w"> </span><span class="nv">CMAKE_CXX_FLAGS_RELEASE</span><span class="o">=</span><span class="s2">&quot;-Ofast -xHost -DNDEBUG&quot;</span><span class="w"> </span><span class="se">\</span>
--D<span class="w"> </span><span class="nv">CMAKE_Fortran_COMPILER</span><span class="o">=</span>/opt/intel/compilers_and_libraries_2020.1.217/linux/bin/intel64/ifort<span class="w"> </span><span class="se">\</span>
--D<span class="w"> </span><span class="nv">BUILD_OMP</span><span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
--D<span class="w"> </span><span class="nv">BUILD_MPI</span><span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
--D<span class="w"> </span><span class="nv">PKG_KSPACE</span><span class="o">=</span>yes<span class="w"> </span>-D<span class="w"> </span><span class="nv">FFT</span><span class="o">=</span>MKL<span class="w"> </span>-D<span class="w"> </span><span class="nv">FFT_SINGLE</span><span class="o">=</span>no<span class="w"> </span><span class="se">\</span>
--D<span class="w"> </span><span class="nv">PKG_OPENMP</span><span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
--D<span class="w"> </span><span class="nv">PKG_MOLECULE</span><span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
--D<span class="w"> </span><span class="nv">PKG_RIGID</span><span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
--D<span class="w"> </span><span class="nv">PKG_REAXFF</span><span class="o">=</span>yes<span class="se">\</span>
--D<span class="w"> </span><span class="nv">ENABLE_TESTING</span><span class="o">=</span>yes<span class="w"> </span>../cmake
-
-make<span class="w"> </span>-j<span class="w"> </span><span class="m">10</span>
-<span class="c1">#make test</span>
-make<span class="w"> </span>install
-</pre></div>
-</div>
-<p>Make the script executable by using the following command</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>./install.sh
-</pre></div>
-</div>
-<p>Then run the installations using the following command. Make sure you open the visualization node
-on Adroit dashboard as that has internet access required for installation.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>./install.sh
-</pre></div>
-</div>
+<h2>LAMMPS Installation<a class="headerlink" href="#lammps-installation" title="Link to this heading">#</a></h2>
+<p>Reference <a class="reference internal" href="tools.html"><span class="std std-doc">tools</span></a> to install LAMMPS</p>
+</section>
+<section id="submitting-a-lammps-job">
+<h2>Submitting a LAMMPS job<a class="headerlink" href="#submitting-a-lammps-job" title="Link to this heading">#</a></h2>
 <p>Use the following job submission script to submit a LAMMPS job. Copy the following content to a file named
 ‘job.slurm’ on your scratch folder (/scratch/network/al9001/). Make sure you replace my princeton Id with yours.</p>
 <p>Alternatively the script is also available on Canvas.</p>
@@ -753,8 +705,8 @@ mkdir<span class="w"> </span><span class="o">{</span><span class="m">2000</span>
 <section id="ovito">
 <h2>OVITO<a class="headerlink" href="#ovito" title="Link to this heading">#</a></h2>
 <p><a class="reference external" href="https://www.ovito.org/">OVITO</a> is an easy to use visualization software that can also be used to convert different geometry file formats.
-You can download and install the free version locally on your computer for visualization. You can download the <a class="reference external" href="http://dump.ar">dump.ar</a> file from your
-simulation folder to your computer and open it using OVITO.</p>
+You can download and install the free version locally on your computer for visualization.</p>
+<p><strong>You can download the <a class="reference external" href="http://dump.ar">dump.ar</a> file from your  simulation folder to your computer and open it using OVITO.</strong></p>
 </section>
 <div class="toctree-wrapper compound">
 </div>
@@ -825,7 +777,8 @@ simulation folder to your computer and open it using OVITO.</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#typical-input-files-required-the-names-can-be-changed">Typical input files required (The names can be changed)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lammps-installation">LAMMPS installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lammps-installation">LAMMPS Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submitting-a-lammps-job">Submitting a LAMMPS job</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lammps-energy-minimization">LAMMPS energy minimization</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lammps-diffusion-example">LAMMPS diffusion example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ovito">OVITO</a></li>

@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
@@ -181,8 +181,11 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="prereq.html">Prerequisites</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="access.html">How to get access to Princeton compueter clusters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="access.html">How to get access to Princeton computer clusters</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="terminal.html">How to use the computing cluster</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="python.html">Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tools.html">Simulation Tools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="geo.html">Geometry Generation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ase.html">ASE Tutorial</a></li>
@@ -366,6 +369,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-lammps-input-file">Sample LAMMPS input file</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-job-submission-script">Sample job submission script</a></li>
 </ul>
             </nav>
@@ -409,7 +413,8 @@ dp<span class="w"> </span>train<span class="w"> </span>input.json<span class="w"
 </div>
 <p>To use the deep potential trained using DeePMD-kit with lammps use the following lammps input file and
 job submission file as a reference</p>
-<p>###Sample LAMMPS input file</p>
+<section id="sample-lammps-input-file">
+<h2>Sample LAMMPS input file<a class="headerlink" href="#sample-lammps-input-file" title="Link to this heading">#</a></h2>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>units<span class="w">           </span>metal
 boundary<span class="w">        </span>p<span class="w"> </span>p<span class="w"> </span>p
 atom_style<span class="w">	</span>atomic
@@ -438,6 +443,7 @@ dump<span class="w">            </span><span class="m">1</span><span class="w"> 
 run<span class="w">             </span><span class="m">1000</span>
 </pre></div>
 </div>
+</section>
 <section id="sample-job-submission-script">
 <h2>Sample job submission script<a class="headerlink" href="#sample-job-submission-script" title="Link to this heading">#</a></h2>
 <p>We will use lammps that is installed as a part of DeePMD-kit installation</p>
@@ -533,6 +539,7 @@ srun<span class="w"> </span>lmp<span class="w"> </span>-in<span class="w"> </spa
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-lammps-input-file">Sample LAMMPS input file</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-job-submission-script">Sample job submission script</a></li>
 </ul>
   </nav></div>

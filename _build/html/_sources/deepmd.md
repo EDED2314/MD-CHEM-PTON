@@ -35,7 +35,7 @@ To use the deep potential trained using DeePMD-kit with lammps use the following
 job submission file as a reference
 
 
-###Sample LAMMPS input file
+### Sample LAMMPS input file
 ```sh
 
 units           metal

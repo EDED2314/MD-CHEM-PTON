@@ -10,7 +10,7 @@ Exercise 0
 1. Go to your *network* directory and create a directory called *ex0*
 2. Create the following subdirectories inside the *ex0* directory: lammps,ase
 
-You will excute small simulations in each of the above subdirectories
+You will execute small simulations in each of the above subdirectories
 ## Part 2: ASE
 1. Copy the following code to a file named test.py
 ```
@@ -40,7 +40,7 @@ write('al2o3.xyz',gAl2O3_110)
 	* `module load anaconda3/2021.11`
 	* `conda activate ase`
 ```{note}
-You will have to perform the two steps above every time you want to excute a python script
+You will have to perform the two steps above every time you want to execute a python script
 ```
 3. Execute the file using the following command inside the folder ase  
 
@@ -100,7 +100,7 @@ export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 
 srun /home/al9001/.local/bin/lmp_adroit -in in.lammps
 ```
-3. Excecute the job using the command
+3. Execute the job using the command
 
 `sbatch job.slurm`
 
