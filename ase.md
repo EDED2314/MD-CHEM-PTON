@@ -65,8 +65,9 @@ qn = BFGS(neb, trajectory='neb.traj')
 qn.run(fmax=0.05)
 ```
 
-To visualize the geometry, open a virtual machine on Adroit visualization node. Change the directory to your home directory.
-Execute the following command
+To visualize the geometry, open a virtual machine on Adroit visualization node or [Della](https://researchcomputing.princeton.edu/systems/della#vis-nodes) visualization node. Change the directory to your home directory. (Note that this is the less preferred method, please use OVITO to visualize instead)
+
+Execute the following command with [ase gui](https://wiki.fysik.dtu.dk/ase/ase/gui/basics.html).
 
 ```sh
 /opt/export/course/mae539/anaconda3/envs/myenv/bin/ase gui neb.traj@-5:
