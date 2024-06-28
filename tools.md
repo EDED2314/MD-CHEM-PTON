@@ -217,9 +217,9 @@ Files used to run VASP calculations
 - POSCAR: Define the geometry of your system
 - POTCAR: Concatenated pseudopotentials for elements of your system 
 
-### Running VASP on Adroit
+### Running VASP on Adroit/Della
 
-We will try to use a VASP executable that has been already compiled
+We will try to use a VASP executable that has been already compiled because VASP requires a license.
 
 Use the following job submission script to submit a VASP job
 ```sh
